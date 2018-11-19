@@ -13,6 +13,27 @@ const Home = ({ navigation }) => (
     >
       <Text>Go to Test Screen</Text>
     </RectButton>
+    <RectButton
+      onPress={() => {
+        navigation.navigate('SignIn')
+      }}
+    >
+      <Text>Go to SignIn Screen</Text>
+    </RectButton>
+    <RectButton
+      onPress={() => {
+        navigation.navigate('SignUp')
+      }}
+    >
+      <Text>Go to SignUp Screen</Text>
+    </RectButton>
+    <RectButton
+      onPress={() => {
+        navigation.navigate('ChangePwd')
+      }}
+    >
+      <Text>Go to Change Password Screen</Text>
+    </RectButton>
   </View>
 )
 
