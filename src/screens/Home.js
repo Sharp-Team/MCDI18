@@ -1,23 +1,34 @@
 import React from 'react'
-import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
-import { RectButton } from 'react-native-gesture-handler'
+import Swiper from 'react-native-swiper'
+import { SwiperOne, SwiperTwo, SwiperThree } from '../components/Swiper'
 
-const Home = ({ navigation }) => (
-  <View>
-    <Text>Home Screen</Text>
-    <RectButton
-      onPress={() => {
-        navigation.navigate('Test')
-      }}
-    >
-      <Text>Go to Test Screen</Text>
-    </RectButton>
-  </View>
-)
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      index: 0,
+    }
+    this.changeIndex = this.changeIndex.bind(this)
+  }
 
-Home.propTypes = {
-  navigation: PropTypes.shape.isRequired,
+  changeIndex(value) {
+    this.setState({ index: value })
+  }
+
+  render() {
+    const { navigation } = this.props
+    const { index } = this.state
+    return (
+      <Swiper loop={false} activeDotColor="#469c29" onIndexChanged={index}>
+        <SwiperOne changeIndex={this.changeIndex} />
+        <SwiperTwo changeIndex={this.changeIndex} />
+        <SwiperThree navigation={navigation} />
+      </Swiper>
+    )
+  }
 }
 
-export default Home
+Home.propTypes = {
+  navigation: PropTypes.func.isRequired,
+}
