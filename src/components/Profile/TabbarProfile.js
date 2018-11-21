@@ -17,9 +17,10 @@ export default class TabbarProfile extends React.Component {
   }
 
   render() {
+    const { index, routes } = this.state
     return (
       <TabView
-        navigationState={this.state}
+        navigationState={{ index, routes }}
         renderScene={SceneMap({
           first: InfoBasic,
           second: TransactionHistory,
@@ -38,7 +39,7 @@ export default class TabbarProfile extends React.Component {
             style={{ backgroundColor: '#fff', color: '#2dd754' }}
           />
         )}
-        onIndexChange={index => this.setState({ index })}
+        onIndexChange={ind => this.setState({ index: ind })}
         initialLayout={{
           width: Dimensions.get('window').width,
           height: Dimensions.get('window').height,
