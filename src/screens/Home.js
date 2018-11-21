@@ -1,23 +1,88 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import PropTypes from 'prop-types'
+import Swiper from 'react-native-swiper'
 import { RectButton } from 'react-native-gesture-handler'
+import { SwiperOne, SwiperTwo, SwiperThree } from '../components/Swiper'
 
-const Home = ({ navigation }) => (
-  <View>
-    <Text>Home Screen</Text>
-    <RectButton
-      onPress={() => {
-        navigation.navigate('Test')
-      }}
-    >
-      <Text>Go to Test Screen</Text>
-    </RectButton>
-  </View>
-)
+const styles = StyleSheet.create({
+  swWraper: {
+    flex: 1,
+    backgroundColor: '#eceff0',
+  },
+  swiper: {
+    flex: 8,
+  },
+  swButton: {
+    paddingHorizontal: 70,
+    paddingVertical: 10,
+    backgroundColor: '#fff',
+  },
+  contentText: {
+    fontSize: 18,
+    color: '#000',
+  },
+  buttonWraper: {
+    flex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#eceff0',
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+})
 
-Home.propTypes = {
-  navigation: PropTypes.shape.isRequired,
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      position: 0,
+    }
+  }
+
+  swiperChange() {
+    const { navigation } = this.props
+    const { position } = this.state
+    if (position === 2) {
+      navigation.navigate('Test')
+    } else {
+      this.swiper.scrollBy(1)
+    }
+  }
+
+  render() {
+    const { navigation } = this.props
+    return (
+      <SafeAreaView style={styles.swWraper}>
+        <View style={styles.swiper}>
+          <Swiper
+            loop={false}
+            activeDotColor="#469c29"
+            onIndexChanged={index => this.setState({ position: index })}
+            ref={swiper => {
+              this.swiper = swiper
+            }}
+          >
+            <SwiperOne />
+            <SwiperTwo navigation={navigation} />
+            <SwiperThree navigation={navigation} />
+          </Swiper>
+        </View>
+        <View style={styles.buttonWraper}>
+          <RectButton style={styles.swButton} onPress={() => this.swiperChange()}>
+            <Text style={styles.buttonText}>Tiếp tục</Text>
+          </RectButton>
+        </View>
+      </SafeAreaView>
+    )
+  }
 }
 
-export default Home
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+}
