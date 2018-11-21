@@ -1,66 +1,65 @@
 import React from 'react'
+import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
-import { View, Text, Image } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 
 const SwiperThree = ({ navigation }) => {
   const styles = {
     swContainer: {
       flex: 1,
-      backgroundColor: '#ECEFF0',
     },
-    image: {
-      flex: 4,
-      alignSelf: 'stretch',
-      width: undefined,
-      height: undefined,
-      resizeMode: 'contain',
+    skipWraper: {
+      flex: 1,
+      alignItems: 'flex-end',
+      paddingRight: 15,
+      justifyContent: 'center',
     },
-    descContainer: {
-      flex: 6,
-      justifyContent: 'space-around',
+    skipText: {
+      fontSize: 16,
+      color: '#000',
+    },
+    titleWraper: {
+      flex: 5,
       alignItems: 'center',
+      justifyContent: 'center',
     },
-    swButton: {
-      paddingHorizontal: 70,
-      paddingVertical: 10,
-      backgroundColor: '#fff',
+    titleText: {
+      color: '#469C29',
+      fontSize: 48,
+      fontWeight: 'bold',
+    },
+    contentWraper: {
+      flex: 4,
+      alignItems: 'center',
+      marginTop: 40,
+      justifyContent: 'flex-start',
     },
     contentText: {
       fontSize: 18,
       color: '#000',
     },
-    buttonText: {
-      color: '#000',
-      fontSize: 20,
-      fontWeight: 'bold',
-    },
   }
   return (
     <View style={styles.swContainer}>
-      <Image
-        style={styles.image}
-        source={{
-          uri: 'http://akishop.com.vn/data/media/1453/images/ket%20noi%20con%20nguoi.jpg',
-        }}
-      />
-      <View style={styles.descContainer}>
-        <Text style={styles.contentText}>Kết nối con người</Text>
-        <RectButton
-          style={styles.swButton}
-          onPress={() => {
-            navigation.navigate('Test')
-          }}
-        >
-          <Text style={styles.buttonText}>Tiếp tục</Text>
+      <View style={styles.skipWraper}>
+        <RectButton onPress={() => navigation.navigate('Test')}>
+          <Text style={styles.skipText}>Bỏ qua</Text>
         </RectButton>
+      </View>
+      <View style={styles.titleWraper}>
+        <Text style={styles.titleText}>Hình ảnh</Text>
+      </View>
+      <View style={styles.contentWraper}>
+        <Text style={styles.contentText}>Kết nỗi công việc</Text>
       </View>
     </View>
   )
 }
 
 SwiperThree.propTypes = {
-  navigation: PropTypes.shape.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 }
 
 export default SwiperThree

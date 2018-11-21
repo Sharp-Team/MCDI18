@@ -6,6 +6,7 @@ export default createStackNavigator({
     screen: Home,
     navigationOptions: {
       title: 'Go Green',
+      header: null,
     },
   },
   Test: {
