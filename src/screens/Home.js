@@ -13,6 +13,13 @@ const Home = ({ navigation }) => (
     >
       <Text>Go to Test Screen</Text>
     </RectButton>
+    <RectButton
+      onPress={() => {
+        navigation.navigate('PopupDetail')
+      }}
+    >
+      <Text>Go to Test Screen</Text>
+    </RectButton>
   </View>
 )
 
