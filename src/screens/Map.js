@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { MapView, Marker } from 'expo'
+import { MapView } from 'expo'
 
 const Map = () => {
   const styles = {
