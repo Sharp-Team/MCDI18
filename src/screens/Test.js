@@ -1,7 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 // import Profile from './Profile'
-import Map from './Map'
+// import Map from './Map'
+import CardScan from './CardScan'
 
 export default () => {
   const styles = {
@@ -11,7 +12,7 @@ export default () => {
   }
   return (
     <View style={styles.profileWraper}>
-      <Map />
+      <CardScan />
     </View>
   )
 }
