@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 // import Profile from './Profile'
-import Notification from './Notification'
+import Map from './Map'
 
 export default () => {
   const styles = {
@@ -11,7 +11,7 @@ export default () => {
   }
   return (
     <View style={styles.profileWraper}>
-      <Notification />
+      <Map />
     </View>
   )
 }
