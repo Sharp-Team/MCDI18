@@ -41,11 +41,10 @@ export default class CardScan extends React.Component {
     this.state = {
       initialDataSearch: ['Sửa xe máy', 'Sửa xe đạp', 'Vá xăm', 'Thay dầu'],
     }
+    this.onHandleTag = this.onHandleTag.bind(this)
   }
 
   onHandleTag(name) {
-    console.log('mm', name)
-    console.log('ee', this.state)
     const { initialDataSearch } = this.state
     const newData = initialDataSearch
     newData.map((item, index) => {
