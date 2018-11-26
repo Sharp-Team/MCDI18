@@ -1,10 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
-// import Profile from './Profile'
-// import Map from './Map'
-import CardScan from './CardScan'
+import PropTypes from 'prop-types'
+import { View, TouchableOpacity, Text } from 'react-native'
 
-export default () => {
+const Test = ({ navigation }) => {
   const styles = {
     profileWraper: {
       flex: 1,
@@ -12,7 +10,26 @@ export default () => {
   }
   return (
     <View style={styles.profileWraper}>
-      <CardScan />
+      <TouchableOpacity onPress={() => navigation.navigate('MapScreen')}>
+        <Text>Map</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
+        <Text>Notification</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Text>Profile</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('CardScan')}>
+        <Text>CardScan</Text>
+      </TouchableOpacity>
     </View>
   )
 }
+
+Test.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+}
+
+export default Test
