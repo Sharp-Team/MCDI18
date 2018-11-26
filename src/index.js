@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation'
-import { Home, Test, PopupDetail } from './screens'
+import { Home, Test } from './screens'
 
 export default createStackNavigator({
   Home: {
@@ -11,8 +11,5 @@ export default createStackNavigator({
   },
   Test: {
     screen: Test,
-  },
-  PopupDetail: {
-    screen: PopupDetail,
   },
 })
