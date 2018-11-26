@@ -1,5 +1,5 @@
 import { createStackNavigator } from 'react-navigation'
-import { Home, Test } from './screens'
+import { Home, Test, ChangePwd, SignIn, SignUp } from './screens'
 
 export default createStackNavigator({
   Home: {
@@ -11,5 +11,14 @@ export default createStackNavigator({
   },
   Test: {
     screen: Test,
+  },
+  ChangePwd: {
+    screen: ChangePwd,
+  },
+  SignIn: {
+    screen: SignIn,
+  },
+  SignUp: {
+    screen: SignUp,
   },
 })
