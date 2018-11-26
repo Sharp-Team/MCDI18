@@ -1,8 +1,17 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
+// import Profile from './Profile'
+import Map from './Map'
 
-export default () => (
-  <View>
-    <Text>Test Screen</Text>
-  </View>
-)
+export default () => {
+  const styles = {
+    profileWraper: {
+      flex: 1,
+    },
+  }
+  return (
+    <View style={styles.profileWraper}>
+      <Map />
+    </View>
+  )
+}
