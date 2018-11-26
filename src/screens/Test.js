@@ -22,6 +22,15 @@ const Test = ({ navigation }) => {
       <TouchableOpacity onPress={() => navigation.navigate('CardScan')}>
         <Text>CardScan</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('ChangePwd')}>
+        <Text>ChangePwd</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+        <Text>SignIn</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+        <Text>SignUp</Text>
+      </TouchableOpacity>
     </View>
   )
 }
