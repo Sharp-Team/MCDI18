@@ -3,6 +3,8 @@ import { View, Text, TextInput, StyleSheet } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
 import TagWork from './TagWork'
+import { TEXT_GRAY, TEXT_GRAY_DARKER } from '../../../constants/color'
+
 
 const styles = StyleSheet.create({
   cardScopeScan: {
@@ -16,7 +18,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
     borderWidth: 0.5,
-    borderColor: '#979797',
+    borderColor: TEXT_GRAY,
   },
   input: {
     flex: 1,
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 15,
-    color: '#333',
+    color: TEXT_GRAY_DARKER,
     fontWeight: '500',
   },
 })

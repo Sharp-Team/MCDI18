@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Slider, StyleSheet } from 'react-native'
+import { PRIMARY, TEXT_GRAY_DARKER } from '../../../constants/color'
 
 const styles = StyleSheet.create({
   cardSearchContainer: {
@@ -14,12 +15,12 @@ const styles = StyleSheet.create({
   },
   textScope: {
     fontSize: 15,
-    color: '#333',
+    color: TEXT_GRAY_DARKER,
     fontWeight: '500',
   },
   scopeValue: {
     fontSize: 15,
-    color: '#2DD754',
+    color: PRIMARY,
     fontWeight: '500',
   },
 })

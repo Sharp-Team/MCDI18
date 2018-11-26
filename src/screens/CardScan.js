@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { CardLocation, CardScopeScan, CardSearchWork } from '../components/CardScan'
+import { PRIMARY } from '../../constants/color'
 
 const styles = StyleSheet.create({
   cardScanContainer: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     left: 10,
     right: 10,
     paddingVertical: 15,
-    backgroundColor: '#2DD754',
+    backgroundColor: PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 3,

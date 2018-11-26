@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import { Icon } from 'expo'
+import { TEXT_GRAY, TEXT_GRAY_DARKER } from '../../../constants/color'
 
 const CardLocation = () => {
   const styles = {
@@ -15,12 +16,12 @@ const CardLocation = () => {
     },
     title: {
       fontSize: 15,
-      color: '#333',
+      color: TEXT_GRAY_DARKER,
       fontWeight: '500',
     },
     location: {
       fontSize: 16,
-      color: '#666',
+      color: TEXT_GRAY,
     },
     iconContainer: {
       flex: 1,

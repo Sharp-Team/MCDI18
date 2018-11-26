@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
+import { TEXT_GRAY, TEXT_GRAY_DARKER } from '../../../constants/color'
 
 const TagWork = ({ name, onHandleTag }) => {
   const styles = {
@@ -9,7 +10,7 @@ const TagWork = ({ name, onHandleTag }) => {
       paddingVertical: 5,
       paddingHorizontal: 10,
       marginTop: 5,
-      backgroundColor: '#979797',
+      backgroundColor: TEXT_GRAY,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
@@ -19,7 +20,7 @@ const TagWork = ({ name, onHandleTag }) => {
     name: {
       fontSize: 16,
       fontWeight: '600',
-      color: '#666',
+      color: TEXT_GRAY_DARKER,
     },
     icon: {
       marginLeft: 10,
