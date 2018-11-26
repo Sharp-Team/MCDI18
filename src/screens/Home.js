@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
-import { BACKGROUND_LIGHT } from '../../constants/color'
 import PropTypes from 'prop-types'
 import Swiper from 'react-native-swiper'
 import { RectButton } from 'react-native-gesture-handler'
+import { BACKGROUND_LIGHT } from '../../constants/color'
 import { SwiperOne, SwiperTwo, SwiperThree } from '../components/Swiper'
 
 const styles = StyleSheet.create({
