@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
+import { TEXT_GRAY_DARKER, PRIMARY } from '../../../constants/color'
 
 const ProfileItem = ({ value, title, confirmPhone, confirmPass }) => {
   const styles = {
@@ -19,13 +20,13 @@ const ProfileItem = ({ value, title, confirmPhone, confirmPass }) => {
       alignItems: 'center',
     },
     valueText: {
-      color: '#2dd754',
+      color: PRIMARY,
       fontSize: 14,
       fontWeight: '400',
       marginRight: 7,
     },
     titleText: {
-      color: '#333',
+      color: TEXT_GRAY_DARKER,
       fontSize: 16,
       fontWeight: '500',
     },
@@ -37,7 +38,7 @@ const ProfileItem = ({ value, title, confirmPhone, confirmPass }) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.titleContainer}>
-        <Text style={[styles.titleText, { color: title === 'Đăng xuất' ? '#2dd754' : '#333' }]}>
+        <Text style={[styles.titleText, { color: title === 'Đăng xuất' ? PRIMARY : TEXT_GRAY_DARKER }]}>
           {title}
         </Text>
         {confirmPhone !== 'none' && <Text style={styles.confirmPhone}>{confirmPhone}</Text>}

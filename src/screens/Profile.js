@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
 import { ProfileValueItem, TabbarProfile } from '../components/Profile'
+import { TEXT_GRAY_DARKER } from '../../constants/color'
 
 const Profile = () => {
   const styles = {
@@ -22,7 +23,7 @@ const Profile = () => {
       marginTop: 5,
       fontSize: 20,
       fontWeight: '500',
-      color: '#333',
+      color: TEXT_GRAY_DARKER,
     },
     profileValueContainer: {
       marginVertical: 15,

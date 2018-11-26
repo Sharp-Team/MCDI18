@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, SectionList, Text } from 'react-native'
-import NotificationItem from '../components/Notification/NotificationItem'
+import { NotificationItem } from '../components/Notification'
 
 const initialData = [
   {
