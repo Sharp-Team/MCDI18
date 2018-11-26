@@ -13,7 +13,7 @@ const CardSearchWork = ({ tagWork, onHandleTag }) => {
     },
     inputContainer: {
       flexDirection: 'row',
-      paddingVertical: 10,
+      paddingVertical: 7,
       marginVertical: 5,
       alignItems: 'center',
       borderWidth: 0.5,
