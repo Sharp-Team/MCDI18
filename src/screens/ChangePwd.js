@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
-import InputCustom from '../components/common/InputCustom'
+import InputCustom from '../components/common'
+import { TEXT_GRAY_DARKER, PRIMARY } from '../../constants/color'
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
 
   formTitle: {
     fontSize: 32,
-    color: '#333',
+    color: TEXT_GRAY_DARKER,
     letterSpacing: 1.2,
     fontWeight: 'bold',
     marginBottom: 40,
@@ -49,7 +50,7 @@ export default () => (
         <Text style={[styles.textOb, { color: '#828282' }]}>Hủy</Text>
       </TouchableHighlight>
       <View style={{ width: 20 }} />
-      <TouchableHighlight style={[styles.buttonCustom, { backgroundColor: '#2DD754' }]}>
+      <TouchableHighlight style={[styles.buttonCustom, { backgroundColor: PRIMARY }]}>
         <Text style={[styles.textOb, { color: '#fff' }]}>Cập nhật</Text>
       </TouchableHighlight>
     </View>

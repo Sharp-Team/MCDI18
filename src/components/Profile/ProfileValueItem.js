@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
+import { TEXT_GRAY, PRIMARY } from '../../../constants/color'
 
 const ProfileValueItem = ({ value, title }) => {
   const styles = {
@@ -9,13 +10,13 @@ const ProfileValueItem = ({ value, title }) => {
       flexDirection: 'row',
     },
     valueText: {
-      color: '#2dd754',
+      color: PRIMARY,
       fontSize: 12,
       fontWeight: '400',
       marginLeft: 10,
     },
     titleText: {
-      color: '#979797',
+      color: TEXT_GRAY,
       fontSize: 12,
     },
   }

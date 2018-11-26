@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native'
-import InputCustom from '../components/common/InputCustom'
-import ButtonOutline from '../components/common/ButtonOutline'
+import { InputCustom, ButtonOutline } from '../components/common'
 
 const styles = StyleSheet.create({
   container: {
