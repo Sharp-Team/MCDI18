@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
-import InputCustom from '../../components/common/InputCustom'
+import InputCustom from '../components/common/InputCustom'
 
 const styles = StyleSheet.create({
   container: {
