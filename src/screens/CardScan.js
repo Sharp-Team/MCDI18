@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
 import { CardLocation, CardScopeScan, CardSearchWork } from '../components/CardScan'
 
 const styles = StyleSheet.create({
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     left: 10,
     right: 10,
     paddingVertical: 15,
-    alignSelf: 'center',
     backgroundColor: '#2DD754',
     justifyContent: 'center',
     alignItems: 'center',
@@ -40,15 +39,17 @@ export default class CardScan extends React.Component {
     super(props)
     this.state = {
       initialDataSearch: ['Sửa xe máy', 'Sửa xe đạp', 'Vá xăm', 'Thay dầu'],
+      check: false,
     }
     this.onHandleTag = this.onHandleTag.bind(this)
+    this.onHandleSubmitInput = this.onHandleSubmitInput.bind(this)
   }
 
   onHandleTag(name) {
     const { initialDataSearch } = this.state
     const newData = initialDataSearch
     newData.map((item, index) => {
-      if (item === name) {
+      if (item.endsWith(name)) {
         newData.splice(index, 1)
       }
       this.setState({ initialDataSearch: newData })
@@ -56,20 +57,47 @@ export default class CardScan extends React.Component {
     })
   }
 
+  onHandleSubmitInput(name) {
+    const { initialDataSearch, check } = this.state
+    const newData = initialDataSearch
+    if (name === '') {
+      return
+    }
+    newData.map(item => {
+      if (item === name) {
+        this.setState({ check: true })
+        console.log('true')
+        return null
+      }
+      return null
+    })
+    console.log('false', check)
+    if (check === false) {
+      console.log('false12')
+      newData.push(name)
+      this.setState({ initialDataSearch: newData })
+    }
+    this.setState({ check: false })
+  }
+
   render() {
     const { initialDataSearch } = this.state
     return (
-      <View style={styles.cardScanContainer}>
+      <ScrollView contentContainerStyle={styles.cardScanContainer}>
         <View style={styles.titleContainer}>
           <Text style={styles.titleText}>TÌM QUANH ĐÂY</Text>
         </View>
         <CardLocation />
-        <CardSearchWork tagWork={initialDataSearch} onHandleTag={this.onHandleTag} />
+        <CardSearchWork
+          tagWork={initialDataSearch}
+          onHandleTag={this.onHandleTag}
+          onHandleSubmitInput={this.onHandleSubmitInput}
+        />
         <CardScopeScan />
         <TouchableOpacity style={styles.buttonScan}>
           <Text style={styles.buttonText}>Bắt đầu quét</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     )
   }
 }
