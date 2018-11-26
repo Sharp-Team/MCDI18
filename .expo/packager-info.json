@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19002,
+  "devToolsPort": 19003,
   "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 1002,
-  "expoServerNgrokUrl": "https://fv-g3z.anonymous.mcdi18.exp.direct",
-  "packagerNgrokUrl": "https://packager.fv-g3z.anonymous.mcdi18.exp.direct",
-  "ngrokPid": 1018
+  "packagerPort": 19004,
+  "packagerPid": 1597,
+  "expoServerNgrokUrl": "https://7t-68b.anonymous.mcdi18.exp.direct",
+  "packagerNgrokUrl": "https://packager.7t-68b.anonymous.mcdi18.exp.direct",
+  "ngrokPid": 1618
 }
