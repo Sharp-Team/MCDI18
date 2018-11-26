@@ -13,3 +13,5 @@ export { default as MapScreen } from './Map'
 export { default as NotificationScreen } from './Notification'
 
 export { default as Profile } from './Profile'
+
+export { default as CardScan } from './CardScan'

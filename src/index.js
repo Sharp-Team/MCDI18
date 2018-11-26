@@ -8,6 +8,7 @@ import {
   MapScreen,
   NotificationScreen,
   Profile,
+  CardScan,
 } from './screens'
 
 export default createStackNavigator({
@@ -25,4 +26,5 @@ export default createStackNavigator({
   MapScreen,
   NotificationScreen,
   Profile,
+  CardScan,
 })
