@@ -45,8 +45,8 @@ export default class CardScopeScan extends React.Component {
           maximumValue={100}
           value={valueSlider}
           step={1}
-          minimumTrackTintColor="#2DD754"
-          thumbTintColor="#2DD754"
+          minimumTrackTintColor={PRIMARY}
+          thumbTintColor={PRIMARY}
           onValueChange={value => {
             this.setState({ valueSlider: value })
           }}

@@ -40,13 +40,22 @@ export default class CardScan extends React.Component {
     super(props)
     this.state = {
       initialDataSearch: ['Sửa xe máy', 'Sửa xe đạp', 'Vá xăm', 'Thay dầu'],
+      initialData: [
+        'Sửa xe máy',
+        'Sửa xe đạp',
+        'Vá xăm',
+        'Thay dầu',
+        'Sửa máy tính',
+        'Sửa máy tính',
+        'Sửa ô tô',
+      ],
       check: false,
     }
     this.onHandleTag = this.onHandleTag.bind(this)
-    this.onHandleSubmitInput = this.onHandleSubmitInput.bind(this)
+    this.onSelectTag = this.onSelectTag.bind(this)
   }
 
-  onHandleTag(name) {
+  onHandleTag = name => {
     const { initialDataSearch } = this.state
     const newData = initialDataSearch
     newData.map((item, index) => {
@@ -58,23 +67,18 @@ export default class CardScan extends React.Component {
     })
   }
 
-  onHandleSubmitInput(name) {
-    const { initialDataSearch, check } = this.state
+  onSelectTag = name => {
+    const { initialDataSearch } = this.state
+    let { check } = this.state
     const newData = initialDataSearch
-    if (name === '') {
-      return
-    }
     newData.map(item => {
       if (item === name) {
-        this.setState({ check: true })
-        console.log('true')
+        check = true
         return null
       }
       return null
     })
-    console.log('false', check)
     if (check === false) {
-      console.log('false12')
       newData.push(name)
       this.setState({ initialDataSearch: newData })
     }
@@ -82,7 +86,7 @@ export default class CardScan extends React.Component {
   }
 
   render() {
-    const { initialDataSearch } = this.state
+    const { initialData, initialDataSearch } = this.state
     return (
       <ScrollView contentContainerStyle={styles.cardScanContainer}>
         <View style={styles.titleContainer}>
@@ -92,7 +96,8 @@ export default class CardScan extends React.Component {
         <CardSearchWork
           tagWork={initialDataSearch}
           onHandleTag={this.onHandleTag}
-          onHandleSubmitInput={this.onHandleSubmitInput}
+          onSelectTag={this.onSelectTag}
+          initialData={initialData}
         />
         <CardScopeScan />
         <TouchableOpacity style={styles.buttonScan}>
