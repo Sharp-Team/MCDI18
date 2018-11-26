@@ -110,8 +110,8 @@ export default class CardSearchWork extends React.Component {
 }
 
 CardSearchWork.propTypes = {
-  tagWork: PropTypes.shape.isRequired,
+  tagWork: PropTypes.arrayOf(PropTypes.string).isRequired,
   onHandleTag: PropTypes.func.isRequired,
   onSelectTag: PropTypes.func.isRequired,
-  initialData: PropTypes.shape.isRequired,
+  initialData: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
