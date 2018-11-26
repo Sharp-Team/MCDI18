@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native'
 import ChangeJob from './ChangeJob'
 import ProfileItem from './ProfileItem'
+import { TEXT_GRAY, PRIMARY } from '../../../constants/color'
 
 const styles = StyleSheet.create({
   changeJobWrapper: {
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
     borderColor: '#bbbb',
   },
   requestSendPassText: {
-    color: '#979797',
+    color: TEXT_GRAY,
     fontSize: 14,
   },
   buttonAccuracy: {
-    backgroundColor: '#2DD754',
+    backgroundColor: PRIMARY,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,

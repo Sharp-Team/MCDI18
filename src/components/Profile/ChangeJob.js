@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import { TEXT_GRAY } from '../../../constants/color'
 
 const ChangeJob = () => {
   const styles = {
@@ -16,7 +17,7 @@ const ChangeJob = () => {
       fontWeight: '500',
     },
     account: {
-      color: '#979797',
+      color: TEXT_GRAY,
       fontSize: 14,
     },
     buttonWraper: {

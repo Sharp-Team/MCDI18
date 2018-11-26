@@ -3,6 +3,8 @@ import { Dimensions } from 'react-native'
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 import InfoBasic from './InfoBasic'
 import TransactionHistory from './TransactionHistory'
+import { PRIMARY } from '../../../constants/color'
+
 
 export default class TabbarProfile extends React.Component {
   constructor(props) {
@@ -28,7 +30,7 @@ export default class TabbarProfile extends React.Component {
         renderTabBar={props => (
           <TabBar
             {...props}
-            indicatorStyle={{ backgroundColor: '#2dd754' }}
+            indicatorStyle={{ backgroundColor: PRIMARY }}
             labelStyle={{
               fontSize: 13,
               fontWeight: '500',
@@ -36,7 +38,7 @@ export default class TabbarProfile extends React.Component {
               marginVertical: 5,
               color: '#333',
             }}
-            style={{ backgroundColor: '#fff', color: '#2dd754' }}
+            style={{ backgroundColor: '#fff', color: PRIMARY }}
           />
         )}
         onIndexChange={ind => this.setState({ index: ind })}
