@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
 import PropTypes from 'prop-types'
@@ -119,103 +119,98 @@ const styles = StyleSheet.create({
   // style for modal
 })
 
-export default class PopupDetail extends Component {
-  state = {
-    modalVisible: false,
-  }
+const PopupDetail = ({ isVisible, data, closeModal }) => {
+  const {
+    requiredWorking,
+    distance,
+    requirerName,
+    requiredTime,
+    requiredDate,
+    requiredMessage,
+  } = data
 
-  render() {
-    const { modalVisible } = this.state
-    const {
-      requiredWorking,
-      distance,
-      requirerName,
-      requiredTime,
-      requiredDate,
-      requiredMessage,
-    } = this.props
-    return (
-      <Modal
-        isVisible={modalVisible}
-        onBackdropPress={() =>
-          this.setState({
-            modalVisible: false,
-          })
-        }
-      >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity
-            style={{ position: 'absolute', top: 10, right: 20 }}
-            onPress={() =>
-              this.setState({
-                modalVisible: false,
-              })
-            }
-          >
-            <Icon.Ionicons name="ios-close" style={styles.iconClose} />
-          </TouchableOpacity>
-          <View style={styles.header}>
-            <Text style={styles.requiredWorking}> Yêu cầu {requiredWorking} </Text>
-            <Text style={styles.distance}> Cách bạn {distance} </Text>
+  return (
+    <Modal
+      isVisible={isVisible}
+      onBackdropPress={closeModal}
+      animationIn="slideInDown"
+      animationOut="slideOutDown"
+    >
+      <View style={styles.modalContainer}>
+        <TouchableOpacity style={{ position: 'absolute', top: 10, right: 20 }} onPress={closeModal}>
+          <Icon.Ionicons name="ios-close" style={styles.iconClose} />
+        </TouchableOpacity>
+        <View style={styles.header}>
+          <Text style={styles.requiredWorking}> Yêu cầu {requiredWorking} </Text>
+          <Text style={styles.distance}> Cách bạn {distance} </Text>
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.requirerName}> {requirerName} </Text>
+          <View>
+            <Text style={styles.requiredTime}> {`${requiredTime} | ${requiredDate}`} </Text>
           </View>
-          <View style={styles.content}>
-            <Text style={styles.requirerName}> {requirerName} </Text>
-            <View>
-              <Text style={styles.requiredTime}> {`${requiredTime} | ${requiredDate}`} </Text>
-            </View>
-            <Text style={styles.messageTitle}> Nội dung công việc </Text>
-            <TextInput
-              style={styles.inputArea}
-              editable={false}
-              value={requiredMessage}
-              multiline
-              numberOfLines={6}
+          <Text style={styles.messageTitle}> Nội dung công việc </Text>
+          <TextInput
+            style={styles.inputArea}
+            editable={false}
+            value={requiredMessage}
+            multiline
+            numberOfLines={6}
+          />
+          <View style={styles.listImages}>
+            <Image
+              style={styles.squareImage}
+              source={{
+                uri: 'https://i.imgur.com/wf9tvKR.jpg',
+              }}
             />
-            <View style={styles.listImages}>
-              <Image
-                style={styles.squareImage}
-                source={{
-                  uri: 'https://i.imgur.com/wf9tvKR.jpg',
-                }}
-              />
-              <Image
-                style={styles.squareImage}
-                source={{
-                  uri: 'https://i.imgur.com/wf9tvKR.jpg',
-                }}
-              />
-            </View>
-            <View style={styles.buttonGroup}>
-              <TouchableOpacity style={styles.tou}>
-                <View style={[styles.button, { borderColor: '#979797' }]}>
-                  <Text style={[styles.buttonText, styles.grayButton]}>Từ chối</Text>
-                </View>
-              </TouchableOpacity>
-              <View style={{ width: 20 }} />
-              <TouchableOpacity style={styles.tou}>
-                <View style={[styles.button, { borderColor: '#2DD754' }]}>
-                  <Text style={[styles.buttonText, styles.greenButton]}>Kết nối</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
+            <Image
+              style={styles.squareImage}
+              source={{
+                uri: 'https://i.imgur.com/wf9tvKR.jpg',
+              }}
+            />
+          </View>
+          <View style={styles.buttonGroup}>
+            <TouchableOpacity style={styles.tou}>
+              <View style={[styles.button, { borderColor: '#979797' }]}>
+                <Text style={[styles.buttonText, styles.grayButton]}>Từ chối</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={{ width: 20 }} />
+            <TouchableOpacity style={styles.tou}>
+              <View style={[styles.button, { borderColor: '#2DD754' }]}>
+                <Text style={[styles.buttonText, styles.greenButton]}>Kết nối</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
-      </Modal>
-    )
-  }
+      </View>
+    </Modal>
+  )
+}
+
+PopupDetail.defaultProps = {
+  isVisible: false,
 }
 
 PopupDetail.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
-  requiredWorking: PropTypes.string.isRequired,
-  distance: PropTypes.string.isRequired,
-  requirerName: PropTypes.string.isRequired,
-  requiredTime: PropTypes.string.isRequired,
-  requiredDate: PropTypes.string.isRequired,
-  requiredMessage: PropTypes.string.isRequired,
-  // requiredImages: PropTypes.objectOf({
-  //   url: PropTypes.string.isRequired,
-  // }).isRequired,
+  isVisible: PropTypes.bool,
+  data: PropTypes.shape({
+    requiredWorking: PropTypes.string.isRequired,
+    distance: PropTypes.string.isRequired,
+    requirerName: PropTypes.string.isRequired,
+    requiredTime: PropTypes.string.isRequired,
+    requiredDate: PropTypes.string.isRequired,
+    requiredMessage: PropTypes.string.isRequired,
+    // requiredImages: PropTypes.objectOf({
+    //   url: PropTypes.string.isRequired,
+    // }).isRequired,
+  }).isRequired,
+  closeModal: PropTypes.func.isRequired,
 }
+
+export default PopupDetail
