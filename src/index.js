@@ -12,6 +12,7 @@ import {
 } from './screens'
 
 export default createStackNavigator({
+  MapScreen,
   Home: {
     screen: Home,
     navigationOptions: {
@@ -23,7 +24,6 @@ export default createStackNavigator({
   ChangePwd,
   SignIn,
   SignUp,
-  MapScreen,
   NotificationScreen,
   Profile,
   CardScan,
