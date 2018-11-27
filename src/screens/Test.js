@@ -43,7 +43,7 @@ Test.propTypes = {
 }
 
 export default Test
-// import React, { Component } from 'react'
+// import React from 'react'
 // import { View, TouchableOpacity, Text } from 'react-native'
 // import { ModalConfirm, ModalDetail, ModalDetail } from '../components/Modal'
 
@@ -53,7 +53,7 @@ export default Test
 //   },
 // }
 
-// export default class Test extends Component {
+// export default class Test extends React.Component {
 //   state = {
 //     isVisible: false,
 //     isVisible1: false,
