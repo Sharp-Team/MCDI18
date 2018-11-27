@@ -50,7 +50,7 @@ const SwiperThree = ({ navigation }) => {
         <Text style={styles.titleText}>Hình ảnh</Text>
       </View>
       <View style={styles.contentWraper}>
-        <Text style={styles.contentText}>Kết nỗi công việc</Text>
+        <Text style={styles.contentText}>Kết nối công việc</Text>
       </View>
     </View>
   )
