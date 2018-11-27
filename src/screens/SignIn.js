@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
 import { InputCustom, ButtonOutline } from '../components/common'
 import { PRIMARY, TEXT_GRAY_DARKER } from '../../constants/color'
 
@@ -8,6 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: '#fff',
+    paddingTop: 70,
   },
 
   formTitle: {
@@ -74,19 +76,19 @@ const styles = StyleSheet.create({
   },
 })
 
-export default () => (
+const SignIn = ({ navigation }) => (
   <View style={styles.container}>
     <Text style={styles.formTitle}>Đăng nhập</Text>
     <InputCustom placeholder="Nhập tên đăng nhập của bạn" inputLabel="Tên đăng nhập" />
     <InputCustom secure placeholder="Nhập mật khẩu" inputLabel="Mật khẩu" />
     <View style={styles.textPocicy}>
       <Text style={styles.textPi}>Quên </Text>
-      <TouchableOpacity style={styles.helpLink}>
-        <Text style={styles.highlightLink}>tên đăng nhập</Text>
+      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('ChangePwd')}>
+        <Text style={styles.highlightLink}>mật khẩu</Text>
       </TouchableOpacity>
       <Text style={styles.textPi}> hoặc </Text>
-      <TouchableOpacity style={styles.helpLink}>
-        <Text style={styles.highlightLink}>mật khẩu</Text>
+      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('ChangePwd')}>
+        <Text style={styles.highlightLink}>đăng ký tài khoản mới</Text>
       </TouchableOpacity>
       <Text style={styles.textPi}>?</Text>
     </View>
@@ -94,12 +96,23 @@ export default () => (
     <View style={styles.buttonGroup}>
       <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
       <View style={{ width: 20 }} />
-      <ButtonOutline color="#43619C" title="facebool" iconName="logo-facebook" />
+      <ButtonOutline color="#43619C" title="facebook" iconName="logo-facebook" />
     </View>
     <View style={styles.btnEnd}>
-      <TouchableOpacity style={styles.buttonSignUp}>
+      <TouchableOpacity
+        style={styles.buttonSignUp}
+        onPress={() => navigation.navigate('MapScreen')}
+      >
         <Text style={styles.textSignUp}>Đăng nhập</Text>
       </TouchableOpacity>
     </View>
   </View>
 )
+
+SignIn.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+}
+
+export default SignIn

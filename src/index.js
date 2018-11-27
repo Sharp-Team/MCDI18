@@ -1,7 +1,10 @@
-import { createStackNavigator } from 'react-navigation'
+import {
+  createStackNavigator,
+  createDrawerNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation'
 import {
   Home,
-  Test,
   ChangePwd,
   SignIn,
   SignUp,
@@ -9,22 +12,58 @@ import {
   NotificationScreen,
   Profile,
   CardScan,
+  DrawerScreen,
 } from './screens'
 
-export default createStackNavigator({
-  Home: {
-    screen: Home,
+const MyTabNavigator = createBottomTabNavigator({
+  MapScreen: {
+    screen: MapScreen,
     navigationOptions: {
-      title: 'Go Green',
+      title: 'Bản đồ',
       header: null,
     },
   },
-  Test,
+  CardScan: {
+    screen: CardScan,
+    navigationOptions: {
+      title: 'Quét',
+      header: null,
+    },
+  },
+})
+
+const MyStackNavigator = createStackNavigator({
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  MyTabNavigator: {
+    screen: MyTabNavigator,
+    navigationOptions: {
+      header: null,
+    },
+  },
   ChangePwd,
-  SignIn,
+  SignIn: {
+    screen: SignIn,
+    navigationOptions: {
+      header: null,
+    },
+  },
   SignUp,
-  MapScreen,
   NotificationScreen,
   Profile,
-  CardScan,
 })
+
+export default createDrawerNavigator(
+  {
+    MyStackNavigator,
+    DrawerScreen,
+  },
+  {
+    contentComponent: DrawerScreen,
+    drawerWidth: 300,
+  },
+)

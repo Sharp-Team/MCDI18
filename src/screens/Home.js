@@ -48,7 +48,7 @@ export default class Home extends PureComponent {
     const { navigation } = this.props
     const { position } = this.state
     if (position === 2) {
-      navigation.navigate('Test')
+      navigation.navigate('SignIn')
     } else {
       this.swiper.scrollBy(1)
     }
