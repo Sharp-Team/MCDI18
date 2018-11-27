@@ -1,8 +1,10 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
+import Modal from 'react-native-modal'
 import PropTypes from 'prop-types'
 import { Icon } from 'expo'
+import { TEXT_GRAY_DARKER } from '../../../constants/color'
 
 const styles = StyleSheet.create({
   itemContainer: {
@@ -29,7 +31,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    color: '#333',
+    color: TEXT_GRAY_DARKER,
     fontWeight: '500',
   },
   detail: {
@@ -58,11 +60,41 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 1,
   },
+  modalContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modal: {
+    width: 300,
+    height: 150,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  textModal: {
+    color: TEXT_GRAY_DARKER,
+    fontSize: 18,
+    alignSelf: 'center',
+  },
+  buttonGroupModal: {
+    marginTop: 15,
+    marginHorizontal: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
 })
 
 export default class NotificationItem extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      modalVisible: false,
+    }
+  }
+
   statusNoti() {
     const { item } = this.props
+    const { modalVisible } = this.state
     switch (item.status) {
       case 0:
         return (
@@ -70,9 +102,38 @@ export default class NotificationItem extends React.Component {
             <RectButton style={[styles.button, { backgroundColor: '#2DD754' }]}>
               <Text style={[styles.textButton, { color: '#fff' }]}>Kết nối</Text>
             </RectButton>
-            <TouchableOpacity style={[styles.button, { backgroundColor: '#fff' }]}>
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: '#fff' }]}
+              onPress={() => {
+                this.setState({ modalVisible: !modalVisible })
+              }}
+            >
               <Text style={[styles.textButton, { color: '#979797' }]}>Từ chối</Text>
             </TouchableOpacity>
+            <Modal
+              isVisible={modalVisible}
+              onBackdropPress={() => {
+                this.setState({ modalVisible: false })
+              }}
+              style={styles.modalContainer}
+            >
+              <View style={styles.modal}>
+                <Text style={styles.textModal}>Bạn có chắc chắn hủy không?</Text>
+                <View style={styles.buttonGroupModal}>
+                  <TouchableOpacity
+                    style={[styles.button, { backgroundColor: '#fff' }]}
+                    onPress={() => {
+                      this.setState({ modalVisible: false })
+                    }}
+                  >
+                    <Text style={[styles.textButton, { color: '#979797' }]}>Quay lại</Text>
+                  </TouchableOpacity>
+                  <RectButton style={[styles.button, { backgroundColor: '#2DD754' }]}>
+                    <Text style={[styles.textButton, { color: '#fff' }]}>Đồng ý</Text>
+                  </RectButton>
+                </View>
+              </View>
+            </Modal>
           </View>
         )
       case 1:
