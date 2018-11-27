@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableHighlight, StyleSheet, Text } from 'react-native'
+import { TouchableOpacity, StyleSheet, Text } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
 
@@ -22,12 +22,12 @@ const styles = StyleSheet.create({
 })
 
 const ButtonOutline = ({ color, size, title, iconName }) => (
-  <TouchableHighlight style={[styles.outlineButton, { borderColor: color }]}>
+  <TouchableOpacity style={[styles.outlineButton, { borderColor: color }]}>
     <Text style={[styles.textOb, { color }]}>
       {iconName !== '' && <Icon.Ionicons name={iconName} style={{ color, fontSize: size }} />}
       {`  ${title}`}
     </Text>
-  </TouchableHighlight>
+  </TouchableOpacity>
 )
 
 ButtonOutline.defaultProps = {

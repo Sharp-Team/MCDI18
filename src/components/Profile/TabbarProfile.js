@@ -2,9 +2,8 @@ import React from 'react'
 import { Dimensions } from 'react-native'
 import { TabView, TabBar, SceneMap } from 'react-native-tab-view'
 import InfoBasic from './InfoBasic'
-import TransactionHistory from './TransactionHistory'
+import HistoryTransaction from './TransactionHistory'
 import { PRIMARY } from '../../../constants/color'
-
 
 export default class TabbarProfile extends React.Component {
   constructor(props) {
@@ -25,7 +24,7 @@ export default class TabbarProfile extends React.Component {
         navigationState={{ index, routes }}
         renderScene={SceneMap({
           first: InfoBasic,
-          second: TransactionHistory,
+          second: HistoryTransaction,
         })}
         renderTabBar={props => (
           <TabBar

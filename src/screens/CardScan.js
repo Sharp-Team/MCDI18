@@ -8,18 +8,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   titleContainer: {
-    height: 50,
-    justifyContent: 'center',
     paddingLeft: 15,
     backgroundColor: '#fff',
   },
   titleText: {
     fontSize: 20,
+    paddingTop: 80,
+    paddingBottom: 20,
     fontWeight: 'bold',
   },
   buttonScan: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 0,
     left: 10,
     right: 10,
     paddingVertical: 15,

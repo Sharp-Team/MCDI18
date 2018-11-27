@@ -15,3 +15,5 @@ export { default as NotificationScreen } from './Notification'
 export { default as Profile } from './Profile'
 
 export { default as CardScan } from './CardScan'
+
+export { default as DrawerScreen } from './DrawerScreen'

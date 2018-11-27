@@ -1,12 +1,33 @@
 import React from 'react'
-import { View, StyleSheet, Platform, Text } from 'react-native'
-import { Constants, Location, Permissions, MapView } from 'expo'
+import { View, TouchableOpacity, StyleSheet, Platform, Image, Text } from 'react-native'
+import { Constants, Location, Permissions, MapView, Icon } from 'expo'
+import PropTypes from 'prop-types'
+import { ModalDetail } from '../components/Modal'
 
 const styles = StyleSheet.create({
+  mapViewContainer: {
+    flex: 1,
+    position: 'relative',
+  },
+  titleContainer: {
+    marginHorizontal: 15,
+    height: 60,
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    justifyContent: 'space-between',
+    borderRadius: 7,
+    zIndex: 1,
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+  },
   radius: {
-    height: 30,
-    width: 30,
-    borderRadius: 30 / 2,
+    height: 50,
+    width: 50,
+    borderRadius: 50 / 2,
     overflow: 'hidden',
     borderWidth: 1,
     alignItems: 'center',
@@ -19,18 +40,129 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 20 / 2,
-    borderColor: '#eee',
+    borderColor: 'white',
     overflow: 'hidden',
     borderWidth: 3,
   },
 })
 
-export default class Map extends React.Component {
+export default class MapScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       location: null,
       errorMessage: null,
+      isVisible: false,
+      features: [
+        {
+          position: { lat: 21.1186188, lng: 105.5698639 },
+          type: 'electric',
+          fullname: 'Phan Văn Đức',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.2186188, lng: 105.1408639 },
+          type: 'car',
+          fullname: 'Phạm Ngọc Hòa',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.3186188, lng: 105.2418639 },
+          type: 'doctor',
+          fullname: 'Trần Quang Nhật',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.4186188, lng: 105.4428639 },
+          type: 'motorcycle',
+          fullname: 'Đỗ Quang Hiệp',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.5186188, lng: 105.3438639 },
+          type: 'fridge',
+          fullname: 'Nguyễn Xuân Cường',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.6186188, lng: 105.9448639 },
+          type: 'laptop',
+          fullname: 'Nguyễn Phương Hồng Thủy',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.7186188, lng: 105.7458639 },
+          type: 'fan',
+          fullname: 'Nguyễn Hải Nam',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.8106188, lng: 105.8468639 },
+          type: 'phone',
+          fullname: 'Phạm Quang Hiệp',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 21.9196188, lng: 105.6478639 },
+          type: 'waste',
+          fullname: 'Lê Đức Anh Quân',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 20.0186188, lng: 105.0488639 },
+          type: 'doctor',
+          fullname: 'Nguyễn Minh Chiến',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 20.8176188, lng: 105.5488639 },
+          type: 'car',
+          fullname: 'Nguyễn Phương Anh',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+        {
+          position: { lat: 20.7166188, lng: 105.5498639 },
+          type: 'phone',
+          fullname: 'Phạm Văn A',
+          email: 'thaycacac@gmail.com',
+          phone: '0123456789',
+          address: 'Km29 ĐạI lộ Thăng Long, Thạch Hoà, Thạch Thất, Hà Nội',
+          content: 'Hỏng gương xe máy honda ABCDE',
+        },
+      ],
     }
   }
 
@@ -56,15 +188,28 @@ export default class Map extends React.Component {
     this.setState({ location })
   }
 
+  setIsVisible = boo => {
+    this.setState({ isVisible: boo })
+  }
+
   render() {
-    const { errorMessage, location } = this.state
+    const { navigation } = this.props
+    const { errorMessage, location, features, isVisible } = this.state
     let text = 'Waiting..'
     if (errorMessage) {
       text = errorMessage
     }
     return (
-      <View style={{ flex: 1 }}>
-        {location && (
+      <View style={styles.mapViewContainer}>
+        <View style={styles.titleContainer}>
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
+            <Icon.Ionicons style={styles.icon} name="ios-notifications" size={35} color="#bbb" />
+          </TouchableOpacity>
+        </View>
+        {location ? (
           <MapView
             style={{ flex: 1 }}
             initialRegion={{
@@ -75,6 +220,25 @@ export default class Map extends React.Component {
             }}
             showsUserLocation
           >
+            {features.map((item, id) => (
+              <MapView.Marker
+                key={id.toString()}
+                onPress={() => {
+                  this.setState({ isVisible: true })
+                }}
+                coordinate={{
+                  latitude: item.position.lat,
+                  longitude: item.position.lng,
+                }}
+              >
+                <Image source={require(`../../assets/car.png`)} />
+                <ModalDetail
+                  isVisible={isVisible}
+                  data={item}
+                  closeModal={() => this.setIsVisible(false)}
+                />
+              </MapView.Marker>
+            ))}
             <MapView.Circle
               center={{
                 latitude: location.coords.latitude,
@@ -85,8 +249,16 @@ export default class Map extends React.Component {
               fillColor="rgba(234,140,140,0.5)"
             />
           </MapView>
+        ) : (
+          <Text>{text}</Text>
         )}
       </View>
     )
   }
+}
+
+MapScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 }
