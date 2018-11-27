@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   buttonScan: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 30,
     left: 10,
     right: 10,
     paddingVertical: 15,
