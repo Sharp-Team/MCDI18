@@ -38,7 +38,9 @@ const ProfileItem = ({ value, title, confirmPhone, confirmPass }) => {
   return (
     <View style={styles.itemContainer}>
       <View style={styles.titleContainer}>
-        <Text style={[styles.titleText, { color: title === 'Đăng xuất' ? PRIMARY : TEXT_GRAY_DARKER }]}>
+        <Text
+          style={[styles.titleText, { color: title === 'Đăng xuất' ? PRIMARY : TEXT_GRAY_DARKER }]}
+        >
           {title}
         </Text>
         {confirmPhone !== 'none' && <Text style={styles.confirmPhone}>{confirmPhone}</Text>}
