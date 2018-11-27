@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
-import InputCustom from '../components/common/InputCustom'
-import ButtonOutline from '../components/common/ButtonOutline'
+import { InputCustom, ButtonOutline } from '../components/common'
+import { PRIMARY, TEXT_GRAY_DARKER } from '../../constants/color'
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
 
   formTitle: {
     fontSize: 32,
-    color: '#333',
+    color: TEXT_GRAY_DARKER,
     letterSpacing: 1.2,
     fontWeight: 'bold',
     marginBottom: 20,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
 
   highlightLink: {
-    color: '#2DD754',
+    color: PRIMARY,
     fontSize: 12,
     textDecorationLine: 'underline',
   },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
 
   buttonSignUp: {
     height: 56,
-    backgroundColor: '#2DD754',
+    backgroundColor: PRIMARY,
     borderRadius: 4,
     marginBottom: 30,
     flexDirection: 'column',

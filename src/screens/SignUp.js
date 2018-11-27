@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, ScrollView, StyleSheet } from 'react-native'
-import InputCustom from '../components/common/InputCustom'
-import ButtonOutline from '../components/common/ButtonOutline'
+import { InputCustom, ButtonOutline } from '../components/common'
 
 const styles = StyleSheet.create({
   container: {
@@ -79,7 +78,7 @@ export default () => (
     <View style={styles.buttonGroup}>
       <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
       <View style={{ width: 20 }} />
-      <ButtonOutline color="#43619C" title="facebool" iconName="logo-facebook" />
+      <ButtonOutline color="#43619C" title="facebook" iconName="logo-facebook" />
     </View>
     <View style={styles.textPocicy}>
       <Text style={styles.textPi}>Khi đăng ký đồng nghĩa răng bạn chấp thuận </Text>

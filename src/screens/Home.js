@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 import PropTypes from 'prop-types'
 import Swiper from 'react-native-swiper'
 import { RectButton } from 'react-native-gesture-handler'
+import { BACKGROUND_LIGHT } from '../../constants/color'
 import { SwiperOne, SwiperTwo, SwiperThree } from '../components/Swiper'
 
 const styles = StyleSheet.create({
   swWraper: {
     flex: 1,
-    backgroundColor: '#eceff0',
+    backgroundColor: BACKGROUND_LIGHT,
   },
   swiper: {
     flex: 8,
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#eceff0',
+    backgroundColor: BACKGROUND_LIGHT,
   },
   buttonText: {
     color: '#000',
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class Home extends React.Component {
+export default class Home extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
