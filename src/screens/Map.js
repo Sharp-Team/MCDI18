@@ -1,9 +1,29 @@
 import React from 'react'
-import { View } from 'react-native'
-import { MapView } from 'expo'
+import { View, TouchableOpacity } from 'react-native'
+import { MapView, Icon } from 'expo'
+import PropTypes from 'prop-types'
 
-const Map = () => {
+const Map = ({ navigation }) => {
   const styles = {
+    mapViewContainer: {
+      flex: 1,
+      position: 'relative',
+    },
+    titleContainer: {
+      marginHorizontal: 15,
+      height: 60,
+      flexDirection: 'row',
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      paddingHorizontal: 15,
+      justifyContent: 'space-between',
+      borderRadius: 7,
+      zIndex: 1,
+      position: 'absolute',
+      top: 50,
+      left: 0,
+      right: 0,
+    },
     radius: {
       height: 50,
       width: 50,
@@ -26,22 +46,38 @@ const Map = () => {
     },
   }
   return (
-    <MapView
-      style={{ flex: 1 }}
-      initialRegion={{
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }}
-    >
-      <MapView.Marker coordinate={{ latitude: 21.027763, longitude: 105.83416 }}>
-        <View style={styles.radius}>
-          <View style={styles.marker} />
-        </View>
-      </MapView.Marker>
-    </MapView>
+    <View style={styles.mapViewContainer}>
+      <View style={styles.titleContainer}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
+          <Icon.Ionicons style={styles.icon} name="ios-notifications" size={35} color="#bbb" />
+        </TouchableOpacity>
+      </View>
+      <MapView
+        style={{ flex: 1 }}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <MapView.Marker coordinate={{ latitude: 21.027763, longitude: 105.83416 }}>
+          <View style={styles.radius}>
+            <View style={styles.marker} />
+          </View>
+        </MapView.Marker>
+      </MapView>
+    </View>
   )
+}
+
+Map.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 }
 
 export default Map

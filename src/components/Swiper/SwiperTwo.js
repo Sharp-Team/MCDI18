@@ -43,7 +43,7 @@ const SwiperTwo = ({ navigation }) => {
   return (
     <View style={styles.swContainer}>
       <View style={styles.skipWraper}>
-        <RectButton onPress={() => navigation.navigate('Test')}>
+        <RectButton onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.skipText}>Bỏ qua</Text>
         </RectButton>
       </View>
