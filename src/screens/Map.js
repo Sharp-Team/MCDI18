@@ -80,7 +80,7 @@ export default class Map extends React.Component {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
               }}
-              radius={10000}
+              radius={30000}
               strokeColor="#eee"
               fillColor="rgba(234,140,140,0.5)"
             />
