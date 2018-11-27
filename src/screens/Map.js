@@ -48,7 +48,9 @@ const Map = ({ navigation }) => {
   return (
     <View style={styles.mapViewContainer}>
       <View style={styles.titleContainer}>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity
+          onPress={() => navigation.openDrawer(true, { userName: 'Nguyễn Doãn Tú', userID: 1 })}
+        >
           <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
