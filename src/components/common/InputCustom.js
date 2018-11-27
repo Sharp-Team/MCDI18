@@ -62,7 +62,7 @@ export default class InputCustom extends React.Component {
             >
               <Icon.Ionicons
                 name={isShowPwd ? 'ios-eye-off' : 'ios-eye'}
-                style={{ color: '#333', fontSize: 22, paddingVertical: 3 }}
+                style={{ color: '#333', fontSize: 25, paddingVertical: 3 }}
               />
             </TouchableOpacity>
           )}
