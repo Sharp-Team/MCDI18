@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, ScrollView, StyleSheet, TouchableHighlight } from 'react-native'
-import InputCustom from '../components/common'
+import { InputCustom } from '../components/common'
 import { TEXT_GRAY_DARKER, PRIMARY } from '../../constants/color'
 
 const styles = StyleSheet.create({
