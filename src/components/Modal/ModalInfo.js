@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: '#fff',
     paddingHorizontal: 20,
-    paddingTop: 35,
+    paddingTop: 45,
     paddingBottom: 20,
     position: 'relative',
   },
@@ -17,7 +17,9 @@ const styles = StyleSheet.create({
   header: {
     borderBottomColor: '#979797',
     borderBottomWidth: 0.5,
-    paddingBottom: 4,
+    paddingBottom: 20,
+    flexDirection: 'row',
+    overflow: 'visible',
   },
 
   iconClose: {
@@ -25,11 +27,23 @@ const styles = StyleSheet.create({
     fontSize: 42,
   },
 
+  info: {
+    flexDirection: 'column',
+    flex: 1,
+    flexWrap: 'wrap',
+    marginRight: 10,
+  },
+
+  name: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: '#2dd754',
+  },
+
   requiredWorking: {
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: 25,
     fontWeight: 'bold',
-    textTransform: 'uppercase',
   },
 
   distance: {
@@ -40,7 +54,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    paddingVertical: 8,
+    paddingVertical: 20,
   },
 
   requirerName: {
@@ -52,7 +66,6 @@ const styles = StyleSheet.create({
 
   requiredTime: {
     fontSize: 14,
-    lineHeight: 18,
     marginVertical: 4,
     color: '#979797',
   },
@@ -82,9 +95,12 @@ const styles = StyleSheet.create({
   },
 
   squareImage: {
-    width: 65,
-    height: 65,
+    width: 64,
+    height: 64,
     marginRight: 10,
+    borderRadius: 32,
+    borderColor: '#ccc',
+    borderWidth: 0.5,
   },
 
   buttonGroup: {
@@ -108,10 +124,6 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
 
-  grayButton: {
-    color: '#979797',
-  },
-
   greenButton: {
     color: '#fff',
     backgroundColor: '#2DD754',
@@ -122,10 +134,10 @@ const styles = StyleSheet.create({
 const PopupDetail = ({ isVisible, data, closeModal }) => {
   const {
     requiredWorking,
-    distance,
     requirerName,
+    requirerAddress,
     requiredTime,
-    requiredDate,
+    requiredTime2,
     requiredMessage,
   } = data
 
@@ -141,14 +153,21 @@ const PopupDetail = ({ isVisible, data, closeModal }) => {
           <Icon.Ionicons name="ios-close" style={styles.iconClose} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={styles.requiredWorking}> Yêu cầu {requiredWorking} </Text>
-          <Text style={styles.distance}> Cách bạn {distance} </Text>
+          <Image
+            style={styles.squareImage}
+            source={{
+              uri:
+                'https://instagram.fhan2-2.fna.fbcdn.net/vp/1cd6d30aa5679feb12009329d4dddc38/5C929B13/t51.2885-15/sh0.08/e35/s640x640/31184314_999264203575110_7030377498047152128_n.jpg',
+            }}
+          />
+          <View style={styles.info}>
+            <Text style={styles.name}>{requirerName}</Text>
+            <Text style={styles.requiredTime}>{requirerAddress}</Text>
+          </View>
         </View>
         <View style={styles.content}>
-          <Text style={styles.requirerName}> {requirerName} </Text>
-          <View>
-            <Text style={styles.requiredTime}> {`${requiredTime} | ${requiredDate}`} </Text>
-          </View>
+          <Text style={styles.requiredWorking}> {requiredWorking} </Text>
+          <Text style={styles.requiredTime}>{`Từ ${requiredTime} đến ${requiredTime2}`}</Text>
           <Text style={styles.messageTitle}> Nội dung công việc </Text>
           <TextInput
             style={styles.inputArea}
@@ -157,30 +176,10 @@ const PopupDetail = ({ isVisible, data, closeModal }) => {
             multiline
             numberOfLines={6}
           />
-          <View style={styles.listImages}>
-            <Image
-              style={styles.squareImage}
-              source={{
-                uri: 'https://i.imgur.com/wf9tvKR.jpg',
-              }}
-            />
-            <Image
-              style={styles.squareImage}
-              source={{
-                uri: 'https://i.imgur.com/wf9tvKR.jpg',
-              }}
-            />
-          </View>
           <View style={styles.buttonGroup}>
             <TouchableOpacity style={styles.tou}>
-              <View style={[styles.button, { borderColor: '#979797' }]}>
-                <Text style={[styles.buttonText, styles.grayButton]}>Từ chối</Text>
-              </View>
-            </TouchableOpacity>
-            <View style={{ width: 20 }} />
-            <TouchableOpacity style={styles.tou}>
               <View style={[styles.button, { borderColor: '#2DD754' }]}>
-                <Text style={[styles.buttonText, styles.greenButton]}>Kết nối</Text>
+                <Text style={[styles.buttonText, styles.greenButton]}>Gửi đề nghị nhận việc</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -198,10 +197,10 @@ PopupDetail.propTypes = {
   isVisible: PropTypes.bool,
   data: PropTypes.shape({
     requiredWorking: PropTypes.string.isRequired,
-    distance: PropTypes.string.isRequired,
     requirerName: PropTypes.string.isRequired,
+    requirerAddress: PropTypes.string.isRequired,
     requiredTime: PropTypes.string.isRequired,
-    requiredDate: PropTypes.string.isRequired,
+    requiredTime2: PropTypes.string.isRequired,
     requiredMessage: PropTypes.string.isRequired,
     // requiredImages: PropTypes.objectOf({
     //   url: PropTypes.string.isRequired,
