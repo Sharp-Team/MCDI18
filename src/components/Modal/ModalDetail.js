@@ -120,14 +120,7 @@ const styles = StyleSheet.create({
 })
 
 const PopupDetail = ({ isVisible, data, closeModal }) => {
-  const {
-    requiredWorking,
-    distance,
-    requirerName,
-    requiredTime,
-    requiredDate,
-    requiredMessage,
-  } = data
+  const { type, fullname, email, phone, address, content } = data
 
   return (
     <Modal
@@ -137,23 +130,26 @@ const PopupDetail = ({ isVisible, data, closeModal }) => {
       animationOut="slideOutDown"
     >
       <View style={styles.modalContainer}>
-        <TouchableOpacity style={{ position: 'absolute', top: 10, right: 20 }} onPress={closeModal}>
+        <TouchableOpacity
+          style={{ position: 'absolute', top: 10, right: 20 }}
+          onPress={() => closeModal(false)}
+        >
           <Icon.Ionicons name="ios-close" style={styles.iconClose} />
         </TouchableOpacity>
         <View style={styles.header}>
-          <Text style={styles.requiredWorking}> Yêu cầu {requiredWorking} </Text>
-          <Text style={styles.distance}> Cách bạn {distance} </Text>
+          <Text style={styles.requiredWorking}> Yêu cầu sửa {type} </Text>
+          <Text style={styles.distance}> Cách bạn 3km </Text>
         </View>
         <View style={styles.content}>
-          <Text style={styles.requirerName}> {requirerName} </Text>
-          <View>
-            <Text style={styles.requiredTime}> {`${requiredTime} | ${requiredDate}`} </Text>
-          </View>
+          <Text style={styles.requirerName}>{fullname}</Text>
+          <Text style={styles.requiredTime}>{email}</Text>
+          <Text style={styles.requiredTime}>{phone}</Text>
+          <Text style={styles.requiredTime}>{address}</Text>
           <Text style={styles.messageTitle}> Nội dung công việc </Text>
           <TextInput
             style={styles.inputArea}
             editable={false}
-            value={requiredMessage}
+            value={content}
             multiline
             numberOfLines={6}
           />
@@ -172,7 +168,7 @@ const PopupDetail = ({ isVisible, data, closeModal }) => {
             />
           </View>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity style={styles.tou}>
+            <TouchableOpacity style={styles.tou} onPress={()=>closeModal(false)}>
               <View style={[styles.button, { borderColor: '#979797' }]}>
                 <Text style={[styles.buttonText, styles.grayButton]}>Từ chối</Text>
               </View>
@@ -197,12 +193,12 @@ PopupDetail.defaultProps = {
 PopupDetail.propTypes = {
   isVisible: PropTypes.bool,
   data: PropTypes.shape({
-    requiredWorking: PropTypes.string.isRequired,
-    distance: PropTypes.string.isRequired,
-    requirerName: PropTypes.string.isRequired,
-    requiredTime: PropTypes.string.isRequired,
-    requiredDate: PropTypes.string.isRequired,
-    requiredMessage: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    fullname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
     // requiredImages: PropTypes.objectOf({
     //   url: PropTypes.string.isRequired,
     // }).isRequired,
