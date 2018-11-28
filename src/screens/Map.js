@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     justifyContent: 'space-between',
     borderRadius: 7,
-    zIndex: 1,
+    zIndex: 10,
     position: 'absolute',
     top: 50,
     left: 0,
@@ -182,13 +182,13 @@ export default class MapScreen extends React.Component {
 
   getLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      })
+    console.log('mmm', status)
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync({})
+      this.setState({ location })
+    } else {
+      console.log('Location permission not granted')
     }
-    const location = await Location.getCurrentPositionAsync({})
-    this.setState({ location })
   }
 
   setIsVisible = boo => {

@@ -76,43 +76,95 @@ const styles = StyleSheet.create({
   },
 })
 
-const SignIn = ({ navigation }) => (
-  <View style={styles.container}>
-    <Text style={styles.formTitle}>Đăng nhập</Text>
-    <InputCustom placeholder="Nhập tên đăng nhập của bạn" inputLabel="Tên đăng nhập" />
-    <InputCustom secure placeholder="Nhập mật khẩu" inputLabel="Mật khẩu" />
-    <View style={styles.textPocicy}>
-      <Text style={styles.textPi}>Quên </Text>
-      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('ChangePwd')}>
-        <Text style={styles.highlightLink}>mật khẩu</Text>
-      </TouchableOpacity>
-      <Text style={styles.textPi}> hoặc </Text>
-      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('ChangePwd')}>
-        <Text style={styles.highlightLink}>đăng ký tài khoản mới</Text>
-      </TouchableOpacity>
-      <Text style={styles.textPi}>?</Text>
-    </View>
-    <Text style={styles.titleUse}>Hoặc sử dụng</Text>
-    <View style={styles.buttonGroup}>
-      <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
-      <View style={{ width: 20 }} />
-      <ButtonOutline color="#43619C" title="facebook" iconName="logo-facebook" />
-    </View>
-    <View style={styles.btnEnd}>
-      <TouchableOpacity
-        style={styles.buttonSignUp}
-        onPress={() => navigation.navigate('MapScreen')}
-      >
-        <Text style={styles.textSignUp}>Đăng nhập</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-)
+export default class SignIn extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userinfo: null,
+    }
+  }
+
+  loginFB = async () => {
+    const { userinfo } = this.state
+    const { navigation } = this.props
+    console.log('ddd', userinfo)
+    try {
+      const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
+        '2313158672248133',
+        {
+          permissions: ['public_profile'],
+        },
+        console.log('bbbbb'),
+      )
+      console.log('aaa', type)
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
+        const userInfo = await response.json()
+        this.setState({ userinfo: userInfo })
+        if (userInfo) {
+          navigation.navigate('MapScreen', userinfo)
+        }
+        alert('Logged in!', `Hi ${(await response.json()).name}!`)
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      navigation.navigate('MapScreen', userinfo)
+      // alert(`Facebook Login Error: ${message}`)
+    }
+  }
+
+  render() {
+    const { navigation } = this.props
+    return (
+      <View style={styles.container}>
+        <Text style={styles.formTitle}>Đăng nhập</Text>
+        <InputCustom placeholder="Nhập tên đăng nhập của bạn" inputLabel="Tên đăng nhập" />
+        <InputCustom secure placeholder="Nhập mật khẩu" inputLabel="Mật khẩu" />
+        <View style={styles.textPocicy}>
+          <Text style={styles.textPi}>Quên </Text>
+          <TouchableOpacity
+            style={styles.helpLink}
+            onPress={() => navigation.navigate('ChangePwd')}
+          >
+            <Text style={styles.highlightLink}>mật khẩu</Text>
+          </TouchableOpacity>
+          <Text style={styles.textPi}> hoặc </Text>
+          <TouchableOpacity
+            style={styles.helpLink}
+            onPress={() => navigation.navigate('ChangePwd')}
+          >
+            <Text style={styles.highlightLink}>đăng ký tài khoản mới</Text>
+          </TouchableOpacity>
+          <Text style={styles.textPi}>?</Text>
+        </View>
+        <Text style={styles.titleUse}>Hoặc sử dụng</Text>
+        <View style={styles.buttonGroup}>
+          <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
+          <View style={{ width: 20 }} />
+          <ButtonOutline
+            color="#43619C"
+            title="facebook"
+            iconName="logo-facebook"
+            login={() => this.loginFB()}
+          />
+        </View>
+        <View style={styles.btnEnd}>
+          <TouchableOpacity
+            style={styles.buttonSignUp}
+            onPress={() => navigation.navigate('MapScreen')}
+          >
+            <Text style={styles.textSignUp}>Đăng nhập</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    )
+  }
+}
 
 SignIn.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
 }
-
-export default SignIn
