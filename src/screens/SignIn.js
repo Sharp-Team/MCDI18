@@ -77,41 +77,47 @@ const styles = StyleSheet.create({
 })
 
 export default class SignIn extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      userinfo: null,
-    }
-  }
-
-  loginFB = async () => {
-    const { userinfo } = this.state
+  signInWithFacebookAsync = async () => {
     const { navigation } = this.props
-    console.log('ddd', userinfo)
     try {
       const { type, token } = await Expo.Facebook.logInWithReadPermissionsAsync(
         '2313158672248133',
         {
           permissions: ['public_profile'],
         },
-        console.log('bbbbb'),
       )
-      console.log('aaa', type)
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`)
+        const response = await fetch(
+          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large)`,
+        )
         const userInfo = await response.json()
-        this.setState({ userinfo: userInfo })
         if (userInfo) {
-          navigation.navigate('MapScreen', userinfo)
+          navigation.navigate('MapScreen', userInfo)
         }
-        alert('Logged in!', `Hi ${(await response.json()).name}!`)
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      navigation.navigate('MapScreen', userinfo)
+      navigation.navigate('MapScreen', userInfo)
       // alert(`Facebook Login Error: ${message}`)
+    }
+  }
+
+  signInWithGoogleAsync = async () => {
+    try {
+      const result = await Expo.Google.logInAsync({
+        androidClientId: '88908170629-ljjlothv906vrdrbv7gu11urcdbbqpgp.apps.googleusercontent.com',
+        iosClientId: '88908170629-qan82lra2eofabrpe2babuqo3fo2cdfe.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      })
+      console.log('nndd', result)
+      if (result.type === 'success') {
+        return result.accessToken
+      }
+      return { cancelled: true }
+    } catch (e) {
+      return { error: true }
     }
   }
 
@@ -141,13 +147,18 @@ export default class SignIn extends React.Component {
         </View>
         <Text style={styles.titleUse}>Hoặc sử dụng</Text>
         <View style={styles.buttonGroup}>
-          <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
+          <ButtonOutline
+            color="#F24033"
+            title="google"
+            iconName="logo-googleplus"
+            login={() => this.signInWithGoogleAsync()}
+          />
           <View style={{ width: 20 }} />
           <ButtonOutline
             color="#43619C"
             title="facebook"
             iconName="logo-facebook"
-            login={() => this.loginFB()}
+            login={() => this.signInWithFacebookAsync()}
           />
         </View>
         <View style={styles.btnEnd}>

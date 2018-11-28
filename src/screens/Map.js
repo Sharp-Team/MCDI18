@@ -182,7 +182,6 @@ export default class MapScreen extends React.Component {
 
   getLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
-    console.log('mmm', status)
     if (status === 'granted') {
       const location = await Location.getCurrentPositionAsync({})
       this.setState({ location })
@@ -208,6 +207,11 @@ export default class MapScreen extends React.Component {
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
           </TouchableOpacity>
+          <Text>Hello {navigation.state.params.name}</Text>
+          <Image
+            style={{ width: 20, height: 20 }}
+            source={{ uri: navigation.state.params.picture.data.url }}
+          />
           <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
             <Icon.Ionicons style={styles.icon} name="ios-notifications" size={35} color="#bbb" />
           </TouchableOpacity>
