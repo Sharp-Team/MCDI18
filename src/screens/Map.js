@@ -1,8 +1,11 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Platform, Image, Text } from 'react-native'
 import { Constants, Location, Permissions, MapView, Icon, PROVIDER_GOOGLE } from 'expo'
+import MapViewDirections from 'react-native-maps-directions'
 import PropTypes from 'prop-types'
 import { ModalDetail } from '../components/Modal'
+
+const GOOGLE_MAPS_APIKEY = 'AIzaSyBQjtj0TxFDfqm8uQbovjJ0pEVtkCgePCw'
 
 const styles = StyleSheet.create({
   mapViewContainer: {
@@ -216,8 +219,8 @@ export default class MapScreen extends React.Component {
             initialRegion={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+              latitudeDelta: 0.00001,
+              longitudeDelta: 0.00001,
             }}
             showsUserLocation
             followsUserLocation
@@ -243,12 +246,15 @@ export default class MapScreen extends React.Component {
                 />
               </MapView.Marker>
             ))}
-            <MapView.Polyline
-              geodesic
-              coordinates={[
-                { latitude: location.coords.latitude, longitude: location.coords.longitude },
-                { latitude: features[0].position.lat, longitude: features[0].position.lng },
-              ]}
+            <MapViewDirections
+              origin={{ latitude: location.coords.latitude, longitude: location.coords.longitude }}
+              destination={{
+                latitude: features[0].position.lat,
+                longitude: features[0].position.lng,
+              }}
+              apikey={GOOGLE_MAPS_APIKEY}
+              strokeWidth={3}
+              strokeColor="hotpink"
             />
             <MapView.Circle
               center={{
