@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, TouchableOpacity, StyleSheet, Platform, Image, Text } from 'react-native'
-import { Constants, Location, Permissions, MapView, Icon } from 'expo'
+import { Constants, Location, Permissions, MapView, Icon, PROVIDER_GOOGLE } from 'expo'
 import PropTypes from 'prop-types'
 import { ModalDetail } from '../components/Modal'
 
@@ -211,6 +211,7 @@ export default class MapScreen extends React.Component {
         </View>
         {location ? (
           <MapView
+            provider={PROVIDER_GOOGLE}
             style={{ flex: 1 }}
             initialRegion={{
               latitude: location.coords.latitude,
@@ -219,6 +220,9 @@ export default class MapScreen extends React.Component {
               longitudeDelta: 0.0421,
             }}
             showsUserLocation
+            followsUserLocation
+            showsIndoorLevelPicker
+            loadingEnabled
           >
             {features.map((item, id) => (
               <MapView.Marker
@@ -239,6 +243,13 @@ export default class MapScreen extends React.Component {
                 />
               </MapView.Marker>
             ))}
+            <MapView.Polyline
+              geodesic
+              coordinates={[
+                { latitude: location.coords.latitude, longitude: location.coords.longitude },
+                { latitude: features[0].position.lat, longitude: features[0].position.lng },
+              ]}
+            />
             <MapView.Circle
               center={{
                 latitude: location.coords.latitude,
