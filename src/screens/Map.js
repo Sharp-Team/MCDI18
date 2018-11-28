@@ -207,11 +207,27 @@ export default class MapScreen extends React.Component {
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
           </TouchableOpacity>
-          <Text>Hello {navigation.state.params.name}</Text>
-          <Image
-            style={{ width: 20, height: 20 }}
-            source={{ uri: navigation.state.params.picture.data.url }}
-          />
+          {navigation.state.params.type === 'facebook' && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>Hello {navigation.state.params.name}</Text>
+              <Image
+                style={{ width: 20, height: 20, marginLeft: 10 }}
+                source={{ uri: navigation.state.params.picture.data.url }}
+              />
+            </View>
+          )}
+          {navigation.state.params.type === 'normal' && (
+            <Text>Hello {navigation.state.params.name}</Text>
+          )}
+          {navigation.state.params.type === 'google' && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>Hello {navigation.state.params.name}</Text>
+              <Image
+                style={{ width: 20, height: 20, marginLeft: 10 }}
+                source={{ uri: navigation.state.params.photoUrl }}
+              />
+            </View>
+          )}
           <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
             <Icon.Ionicons style={styles.icon} name="ios-notifications" size={35} color="#bbb" />
           </TouchableOpacity>
