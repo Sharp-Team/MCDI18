@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     backgroundColor: '#2DD754',
   },
-  // style for modal
 })
 
 const PopupDetail = ({ isVisible, data, closeModal }) => {
@@ -168,7 +167,7 @@ const PopupDetail = ({ isVisible, data, closeModal }) => {
             />
           </View>
           <View style={styles.buttonGroup}>
-            <TouchableOpacity style={styles.tou} onPress={()=>closeModal(false)}>
+            <TouchableOpacity style={styles.tou} onPress={() => closeModal(false)}>
               <View style={[styles.button, { borderColor: '#979797' }]}>
                 <Text style={[styles.buttonText, styles.grayButton]}>Từ chối</Text>
               </View>
