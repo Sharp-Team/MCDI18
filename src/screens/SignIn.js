@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
+import axios from 'axios'
 import { InputCustom, ButtonOutline } from '../components/common'
 import { PRIMARY, TEXT_GRAY_DARKER } from '../../constants/color'
 
@@ -77,6 +78,14 @@ const styles = StyleSheet.create({
 })
 
 export default class SignIn extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: '',
+      password: '0',
+    }
+  }
+
   signInWithFacebookAsync = async () => {
     const { navigation } = this.props
     try {
@@ -93,27 +102,27 @@ export default class SignIn extends React.Component {
         )
         const userInfo = await response.json()
         if (userInfo) {
-          navigation.navigate('MapScreen', userInfo)
+          navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
         }
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      navigation.navigate('MapScreen', userInfo)
+      navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
       // alert(`Facebook Login Error: ${message}`)
     }
   }
 
   signInWithGoogleAsync = async () => {
+    const { navigation } = this.props
     try {
       const result = await Expo.Google.logInAsync({
         androidClientId: '88908170629-ljjlothv906vrdrbv7gu11urcdbbqpgp.apps.googleusercontent.com',
         iosClientId: '88908170629-qan82lra2eofabrpe2babuqo3fo2cdfe.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       })
-      console.log('nndd', result)
       if (result.type === 'success') {
-        return result.accessToken
+        navigation.navigate('MapScreen', { type: 'google', ...result.user })
       }
       return { cancelled: true }
     } catch (e) {
@@ -121,13 +130,51 @@ export default class SignIn extends React.Component {
     }
   }
 
+  onChangeUser = username => {
+    this.setState({ username })
+  }
+
+  onChangePassword = password => {
+    this.setState({ password })
+  }
+
+  loginNormal() {
+    const { username, password } = this.state
+    const { navigation } = this.props
+    axios
+      .post('https://wcdi18.herokuapp.com/api/user/signin', {
+        username,
+        password,
+      })
+      .then(response => {
+        console.log('dddd', response.data)
+        if (!response.data.error) {
+          navigation.navigate('MapScreen', { type: 'normal', name: username })
+        } else {
+          alert(response.data.error)
+        }
+      })
+      .catch(error => {
+        console.log('dd', error)
+      })
+  }
+
   render() {
     const { navigation } = this.props
     return (
       <View style={styles.container}>
         <Text style={styles.formTitle}>Đăng nhập</Text>
-        <InputCustom placeholder="Nhập tên đăng nhập của bạn" inputLabel="Tên đăng nhập" />
-        <InputCustom secure placeholder="Nhập mật khẩu" inputLabel="Mật khẩu" />
+        <InputCustom
+          placeholder="Nhập tên đăng nhập của bạn"
+          inputLabel="Tên đăng nhập"
+          onChangeText={this.onChangeUser}
+        />
+        <InputCustom
+          secure
+          placeholder="Nhập mật khẩu"
+          inputLabel="Mật khẩu"
+          onChangeText={this.onChangePassword}
+        />
         <View style={styles.textPocicy}>
           <Text style={styles.textPi}>Quên </Text>
           <TouchableOpacity
@@ -137,10 +184,7 @@ export default class SignIn extends React.Component {
             <Text style={styles.highlightLink}>mật khẩu</Text>
           </TouchableOpacity>
           <Text style={styles.textPi}> hoặc </Text>
-          <TouchableOpacity
-            style={styles.helpLink}
-            onPress={() => navigation.navigate('ChangePwd')}
-          >
+          <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.highlightLink}>đăng ký tài khoản mới</Text>
           </TouchableOpacity>
           <Text style={styles.textPi}>?</Text>
@@ -162,10 +206,7 @@ export default class SignIn extends React.Component {
           />
         </View>
         <View style={styles.btnEnd}>
-          <TouchableOpacity
-            style={styles.buttonSignUp}
-            onPress={() => navigation.navigate('MapScreen')}
-          >
+          <TouchableOpacity style={styles.buttonSignUp} onPress={() => this.loginNormal()}>
             <Text style={styles.textSignUp}>Đăng nhập</Text>
           </TouchableOpacity>
         </View>
