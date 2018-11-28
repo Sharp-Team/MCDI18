@@ -6,6 +6,7 @@ import { PRIMARY } from '../../constants/color'
 const styles = StyleSheet.create({
   cardScanContainer: {
     flex: 1,
+    marginBottom: 30,
   },
   titleContainer: {
     paddingLeft: 15,
@@ -39,7 +40,7 @@ export default class CardScan extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      initialDataSearch: ['Sửa xe máy', 'Sửa xe đạp', 'Vá xăm', 'Thay dầu'],
+      initialDataSearch: [],
       initialData: [
         'Sửa xe máy',
         'Sửa xe đạp',

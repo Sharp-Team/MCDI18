@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native'
 import { Icon } from 'expo'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -51,6 +52,7 @@ export default class DrawerScreen extends React.Component {
   }
 
   render() {
+    const { navigation } = this.props
     const { isLogged, userState } = this.state
     return (
       <View style={styles.container}>
@@ -59,7 +61,10 @@ export default class DrawerScreen extends React.Component {
             <View style={styles.header}>
               <View style={{ flexDirection: 'row' }}>
                 <Text style={styles.userName}>Nguyễn Doãn Tú</Text>
-                <TouchableOpacity style={{ marginLeft: 'auto' }}>
+                <TouchableOpacity
+                  style={{ marginLeft: 'auto' }}
+                  onPress={() => navigation.navigate('Profile')}
+                >
                   <Icon.Ionicons name="ios-settings" style={styles.iconSetting} />
                 </TouchableOpacity>
               </View>
@@ -78,7 +83,7 @@ export default class DrawerScreen extends React.Component {
               </View>
             </View>
             <View style={{ paddingTop: 20 }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Feedback')}>
                 <Text style={styles.textDrawer}>Feedback</Text>
               </TouchableOpacity>
               <TouchableOpacity>
@@ -96,4 +101,10 @@ export default class DrawerScreen extends React.Component {
       </View>
     )
   }
+}
+
+DrawerScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 }

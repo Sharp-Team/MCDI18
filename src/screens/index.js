@@ -17,3 +17,5 @@ export { default as Profile } from './Profile'
 export { default as CardScan } from './CardScan'
 
 export { default as DrawerScreen } from './DrawerScreen'
+
+export { default as Feedback } from './Feedback'

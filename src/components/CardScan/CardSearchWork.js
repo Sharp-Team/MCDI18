@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
 import Modal from 'react-native-modal'
@@ -14,15 +14,16 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    paddingVertical: 7,
+    paddingVertical: 3,
     marginVertical: 5,
     alignItems: 'center',
     borderWidth: 0.5,
     borderColor: TEXT_GRAY,
+    borderRadius: 4,
   },
   input: {
     flex: 1,
-    paddingHorizontal: 5,
+    color: '#333',
   },
   iconSearch: {
     margin: 5,
@@ -77,12 +78,7 @@ export default class CardSearchWork extends React.Component {
           }}
         >
           <Icon.Ionicons style={styles.iconSearch} name="ios-search" size={20} color="#bbb" />
-          <TextInput
-            numberOfLines={1}
-            style={styles.input}
-            editable={false}
-            placeholder="Chọn công việc bạn làm được"
-          />
+          <Text style={styles.input}>Chọn một công việc</Text>
         </TouchableOpacity>
         <Modal
           isVisible={modalVisible}
