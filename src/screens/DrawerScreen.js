@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Icon } from 'expo'
+import PropTypes from 'prop-types'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,23 +37,39 @@ const styles = StyleSheet.create({
   },
 })
 
-const DrawerScreen = () => (
+const DrawerScreen = ({ isLogged }) => (
   <View style={styles.container}>
-    <View style={styles.header}>
-      <Text style={styles.userName}>Nguyễn Doãn Tú</Text>
-      <TouchableOpacity style={{ marginLeft: 'auto' }}>
-        <Icon.Ionicons name="ios-settings" style={styles.iconSetting} />
-      </TouchableOpacity>
-    </View>
-    <View style={{ paddingTop: 20 }}>
-      <TouchableOpacity>
-        <Text style={styles.textDrawer}>Feedback</Text>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.textDrawer}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+    {isLogged ? (
+      <View>
+        <View style={styles.header}>
+          <Text style={styles.userName}>Nguyễn Doãn Tú</Text>
+          <TouchableOpacity style={{ marginLeft: 'auto' }}>
+            <Icon.Ionicons name="ios-settings" style={styles.iconSetting} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ paddingTop: 20 }}>
+          <TouchableOpacity>
+            <Text style={styles.textDrawer}>Feedback</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text style={styles.textDrawer}>Logout</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    ) : (
+      <View style={{ paddingTop: 20 }}>
+        <TouchableOpacity>
+          <Text style={styles.textDrawer}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    )}
   </View>
 )
+DrawerScreen.defaultProps = {
+  isLogged: true,
+}
+DrawerScreen.propTypes = {
+  isLogged: PropTypes.bool,
+}
 
 export default DrawerScreen
