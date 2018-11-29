@@ -147,7 +147,6 @@ export default class SignIn extends React.Component {
         password,
       })
       .then(response => {
-        console.log('dddd', response.data)
         if (!response.data.error) {
           navigation.navigate('MapScreen', { type: 'normal', name: username })
         } else {
