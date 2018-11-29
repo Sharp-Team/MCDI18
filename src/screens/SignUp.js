@@ -155,7 +155,6 @@ export default class SignUp extends React.Component {
         password,
       })
       .then(response => {
-        console.log('dddd', response.data)
         if (!response.data.error) {
           navigation.navigate('MapScreen', { type: 'normal', name })
         } else {
