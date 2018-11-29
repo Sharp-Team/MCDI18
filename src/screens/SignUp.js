@@ -164,6 +164,7 @@ export default class SignUp extends React.Component {
         androidClientId: '88908170629-ljjlothv906vrdrbv7gu11urcdbbqpgp.apps.googleusercontent.com',
         iosClientId: '88908170629-qan82lra2eofabrpe2babuqo3fo2cdfe.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
+        behavior: 'web',
       })
       if (result.type === 'success') {
         navigation.navigate('MapScreen', { type: 'google', ...result.user })

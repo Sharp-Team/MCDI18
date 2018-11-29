@@ -51,6 +51,13 @@ export default class Feedback extends React.Component {
         color: '#2dd754',
       },
     ],
+    // username: '',
+    // phone: '',
+    // cityz: '',
+    // userRole: '',
+    errorUsername: false,
+    errorPhone: false,
+    errorAddress: false,
   }
 
   getCity = data => {
@@ -77,8 +84,42 @@ export default class Feedback extends React.Component {
     this.setState({ userState })
   }
 
+  onChangeUser = username => {
+    // this.setState({ username })
+    if (!username) {
+      this.setState({ errorUsername: true })
+    } else {
+      this.setState({ errorUsername: false })
+    }
+  }
+
+  onChangePhone = phone => {
+    // this.setState({ phone })
+    if (!phone) {
+      this.setState({ errorPhone: true })
+    } else {
+      this.setState({ errorPhone: false })
+    }
+  }
+
+  onChangeAddress = address => {
+    // this.setState({ address })
+    if (!address) {
+      this.setState({ errorAddress: true })
+    } else {
+      this.setState({ errorAddress: false })
+    }
+  }
+
   render() {
-    const { citySelected, districtSelected, userState } = this.state
+    const {
+      citySelected,
+      districtSelected,
+      userState,
+      errorUsername,
+      errorPhone,
+      errorAddress,
+    } = this.state
     const vietnam = require('../../constants/city.json')
     const city = this.getCity(vietnam)
     const districts = this.getDistricts(vietnam, citySelected)
@@ -89,8 +130,16 @@ export default class Feedback extends React.Component {
           <Text style={styles.warming}>(Bạn phải cung cấp đầy đủ thông tin để thực hiện tiếp)</Text>
         </View>
         <View style={{ marginVertical: 10 }}>
-          <InputCustom placeholder="Họ và tên đầy đủ" />
-          <InputCustom placeholder="Số điện thoại" />
+          <InputCustom
+            placeholder="Họ và tên đầy đủ"
+            error={errorUsername}
+            onChangeText={this.onChangeUser}
+          />
+          <InputCustom
+            placeholder="Số điện thoại"
+            error={errorPhone}
+            onChangeText={this.onChangePhone}
+          />
           <Dropdown
             label="Chọn tỉnh hoặc thành phố"
             data={city}
@@ -108,7 +157,11 @@ export default class Feedback extends React.Component {
             }}
           />
           <View style={{ height: 12 }} />
-          <InputCustom placeholder="Địa chỉ cụ thể: Số nhà, Ngõ, Phố..." />
+          <InputCustom
+            placeholder="Địa chỉ cụ thể: Số nhà, Ngõ, Phố..."
+            error={errorAddress}
+            onChangeText={this.onChangeAddress}
+          />
           <View style={{ flexDirection: 'row', alignContent: 'flex-start', marginTop: 5 }}>
             <Text style={{ color: '#ccc', fontSize: 16, marginTop: 2 }}>Chọn đối tượng</Text>
             <View style={{ marginLeft: 'auto' }}>

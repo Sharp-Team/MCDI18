@@ -5,7 +5,7 @@ import MapViewDirections from 'react-native-maps-directions'
 import PropTypes from 'prop-types'
 import { ModalDetail } from '../components/Modal'
 
-const GOOGLE_MAPS_APIKEY = 'AIzaSyBQjtj0TxFDfqm8uQbovjJ0pEVtkCgePCw'
+const GOOGLE_MAPS_APIKEY = 'AIzaSyDi4LtrwG2iM0a_c5i1JL1nE0BbPL4sSRQ'
 
 const styles = StyleSheet.create({
   mapViewContainer: {

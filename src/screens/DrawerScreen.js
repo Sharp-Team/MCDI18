@@ -87,14 +87,14 @@ export default class DrawerScreen extends React.Component {
                 <Text style={styles.textDrawer}>Feedback</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                <Text style={styles.textDrawer}>Logout</Text>
+                <Text style={styles.textDrawer}>Đăng xuất</Text>
               </TouchableOpacity>
             </View>
           </View>
         ) : (
           <View style={{ paddingTop: 20 }}>
             <TouchableOpacity>
-              <Text style={styles.textDrawer}>Login</Text>
+              <Text style={styles.textDrawer}>Đăng nhập</Text>
             </TouchableOpacity>
           </View>
         )}
