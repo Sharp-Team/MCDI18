@@ -82,7 +82,9 @@ export default class SignIn extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: '0',
+      password: '',
+      errorUserName: false,
+      errrorPassword: false,
     }
   }
 
@@ -132,46 +134,66 @@ export default class SignIn extends React.Component {
 
   onChangeUser = username => {
     this.setState({ username })
+    if (!username) {
+      this.setState({ errorUserName: true })
+    } else {
+      this.setState({ errorUserName: false })
+    }
   }
 
   onChangePassword = password => {
     this.setState({ password })
+    if (!password) {
+      this.setState({ errrorPassword: true })
+    } else {
+      this.setState({ errrorPassword: false })
+    }
   }
 
   loginNormal() {
     const { username, password } = this.state
     const { navigation } = this.props
-    axios
-      .post('https://wcdi18.herokuapp.com/api/user/signin', {
-        username,
-        password,
+    if (username && password) {
+      axios
+        .post('https://wcdi18.herokuapp.com/api/user/signin', {
+          username,
+          password,
+        })
+        .then(response => {
+          if (!response.data.error) {
+            navigation.navigate('MapScreen', { type: 'normal', name: username })
+          } else {
+            alert(response.data.error)
+          }
+        })
+        .catch(error => {
+          console.log('dd', error)
+        })
+    } else {
+      this.setState({
+        errorUserName: !username,
+        errrorPassword: !password,
       })
-      .then(response => {
-        if (!response.data.error) {
-          navigation.navigate('MapScreen', { type: 'normal', name: username })
-        } else {
-          alert(response.data.error)
-        }
-      })
-      .catch(error => {
-        console.log('dd', error)
-      })
+    }
   }
 
   render() {
     const { navigation } = this.props
+    const { errorUserName, errrorPassword } = this.state
     return (
       <View style={styles.container}>
         <Text style={styles.formTitle}>Đăng nhập</Text>
         <InputCustom
           placeholder="Nhập tên đăng nhập của bạn"
           inputLabel="Tên đăng nhập"
+          error={errorUserName}
           onChangeText={this.onChangeUser}
         />
         <InputCustom
           secure
           placeholder="Nhập mật khẩu"
           inputLabel="Mật khẩu"
+          error={errrorPassword}
           onChangeText={this.onChangePassword}
         />
         <View style={styles.textPocicy}>
