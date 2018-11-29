@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native'
 import { Dropdown } from 'react-native-material-dropdown'
+import RadioGroup from 'react-native-radio-buttons-group'
 import InputCustom from '../components/common/InputCustom'
 
 const styles = StyleSheet.create({
@@ -38,6 +39,18 @@ export default class Feedback extends React.Component {
   state = {
     citySelected: '',
     districtSelected: '',
+    userState: [
+      {
+        label: 'Khách hàng',
+        value: 'Khách hàng',
+        color: '#2dd754',
+      },
+      {
+        label: 'Người làm việc',
+        value: 'Người làm việc',
+        color: '#2dd754',
+      },
+    ],
   }
 
   getCity = data => {
@@ -60,8 +73,12 @@ export default class Feedback extends React.Component {
     this.setState({ districtSelected: selected })
   }
 
+  clickRadio = userState => {
+    this.setState({ userState })
+  }
+
   render() {
-    const { citySelected, districtSelected } = this.state
+    const { citySelected, districtSelected, userState } = this.state
     const vietnam = require('../../constants/city.json')
     const city = this.getCity(vietnam)
     const districts = this.getDistricts(vietnam, citySelected)
@@ -90,8 +107,14 @@ export default class Feedback extends React.Component {
               this.handleSelectDistrict(value)
             }}
           />
-          <View style={{ height: 10 }} />
+          <View style={{ height: 12 }} />
           <InputCustom placeholder="Địa chỉ cụ thể: Số nhà, Ngõ, Phố..." />
+          <View style={{ flexDirection: 'row', alignContent: 'flex-start', marginTop: 5 }}>
+            <Text style={{ color: '#ccc', fontSize: 16, marginTop: 2 }}>Chọn đối tượng</Text>
+            <View style={{ marginLeft: 'auto' }}>
+              <RadioGroup radioButtons={userState} onPress={this.clickRadio} />
+            </View>
+          </View>
           <TouchableOpacity style={{ borderRadius: 4, backgroundColor: '#2dd754', marginTop: 20 }}>
             <Text style={styles.update}>Cập nhật</Text>
           </TouchableOpacity>

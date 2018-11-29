@@ -7,7 +7,7 @@ const TagWork = ({ name, onHandleTag }) => {
   const styles = {
     tagContainer: {
       marginTop: 5,
-      backgroundColor: '#e6e6e6',
+      backgroundColor: '#cecece',
       position: 'relative',
       borderRadius: 18,
       marginLeft: 3,
@@ -16,21 +16,24 @@ const TagWork = ({ name, onHandleTag }) => {
       fontSize: 16,
       paddingVertical: 7,
       paddingLeft: 10,
-      paddingRight: 30,
+      paddingRight: 45,
       fontWeight: '500',
       color: '#fff',
     },
     icon: {
       position: 'absolute',
-      right: 13,
-      top: 6,
+      paddingHorizontal: 8,
+      backgroundColor: '#fff',
+      borderRadius: 30,
+      right: 4,
+      top: 3,
     },
   }
   return (
     <View style={styles.tagContainer}>
       <Text style={styles.name}>{name}</Text>
       <TouchableOpacity style={styles.icon} onPress={() => onHandleTag(name)}>
-        <Icon.Ionicons name="ios-close" size={23} color="#fff" />
+        <Icon.Ionicons name="ios-close" size={23} color="#ccc" lineHeight={20} />
       </TouchableOpacity>
     </View>
   )

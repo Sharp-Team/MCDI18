@@ -21,3 +21,5 @@ export { default as DrawerScreen } from './DrawerScreen'
 export { default as Feedback } from './Feedback'
 
 export { default as ProvideProfile } from './ProvideProfile'
+
+export { default as RocketNoti } from './RocketNoti'

@@ -15,6 +15,7 @@ import {
   DrawerScreen,
   Feedback,
   ProvideProfile,
+  RocketNoti,
 } from './screens'
 
 const MyTabNavigator = createBottomTabNavigator({
@@ -29,6 +30,13 @@ const MyTabNavigator = createBottomTabNavigator({
     screen: CardScan,
     navigationOptions: {
       title: 'Quét',
+      header: null,
+    },
+  },
+  RocketNoti: {
+    screen: RocketNoti,
+    navigationOptions: {
+      title: 'Phát',
       header: null,
     },
   },
