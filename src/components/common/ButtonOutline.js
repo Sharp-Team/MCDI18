@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const ButtonOutline = ({ color, size, title, iconName, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.outlineButton, { borderColor: color }]}>
+const ButtonOutline = ({ color, size, title, iconName, login }) => (
+  <TouchableOpacity style={[styles.outlineButton, { borderColor: color }]} onPress={() => login()}>
     <Text style={[styles.textOb, { color }]}>
       {iconName !== '' && <Icon.Ionicons name={iconName} style={{ color, fontSize: size }} />}
       {`  ${title}`}
@@ -35,7 +35,7 @@ ButtonOutline.defaultProps = {
   size: 16,
   title: 'BUTTON',
   iconName: '',
-  onPress: () => {},
+  login: () => {},
 }
 
 ButtonOutline.propTypes = {
@@ -43,7 +43,7 @@ ButtonOutline.propTypes = {
   size: PropTypes.number,
   title: PropTypes.string,
   iconName: PropTypes.string,
-  onPress: PropTypes.func,
+  login: PropTypes.func,
 }
 
 export default ButtonOutline

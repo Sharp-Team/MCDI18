@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
 
   textInputField: {
+    flex: 1,
     fontSize: 16,
     paddingBottom: 6,
     borderBottomColor: '#ccc',
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textTransform: 'uppercase',
     color: '#828282',
-    paddingTop: 10,
+    paddingBottom: 10,
     fontWeight: '500',
   },
 
@@ -43,31 +44,34 @@ export default class InputCustom extends React.Component {
 
   render() {
     const { isShowPwd } = this.state
-    const { secure, placeholder, inputLabel } = this.props
+    const { secure, placeholder, inputLabel, onChangeText } = this.props
     return (
       <View style={styles.inputGroup}>
         <View style={styles.inputWithEyes}>
-          <TextInput
-            style={styles.textInputField}
-            secureTextEntry={secure && !isShowPwd}
-            placeholderStyle={{ fontSize: 16, color: '#ccc' }}
-            placeholder={placeholder}
-          />
-          {secure && (
-            <TouchableOpacity
-              style={{ position: 'absolute', right: 5, top: -4 }}
-              onPress={() => {
-                this.setHideShowPwd(!isShowPwd)
-              }}
-            >
-              <Icon.Ionicons
-                name={isShowPwd ? 'ios-eye-off' : 'ios-eye'}
-                style={{ color: '#333', fontSize: 25, paddingVertical: 3 }}
-              />
-            </TouchableOpacity>
-          )}
+          {inputLabel !== '' && <Text style={styles.textInputLabel}>{inputLabel}</Text>}
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TextInput
+              style={styles.textInputField}
+              onChangeText={text => onChangeText(text)}
+              secureTextEntry={secure && !isShowPwd}
+              placeholderStyle={{ fontSize: 16, color: '#ccc' }}
+              placeholder={placeholder}
+            />
+            {secure && (
+              <TouchableOpacity
+                style={{ position: 'absolute', right: 5, top: -4 }}
+                onPress={() => {
+                  this.setHideShowPwd(!isShowPwd)
+                }}
+              >
+                <Icon.Ionicons
+                  name={isShowPwd ? 'ios-eye-off' : 'ios-eye'}
+                  style={{ color: '#333', fontSize: 25, paddingVertical: 3 }}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
         </View>
-        {inputLabel !== '' && <Text style={styles.textInputLabel}>{inputLabel}</Text>}
       </View>
     )
   }
@@ -77,10 +81,12 @@ InputCustom.defaultProps = {
   secure: false,
   placeholder: '',
   inputLabel: '',
+  onChangeText: null,
 }
 
 InputCustom.propTypes = {
   secure: PropTypes.bool,
   placeholder: PropTypes.string,
   inputLabel: PropTypes.string,
+  onChangeText: PropTypes.func,
 }

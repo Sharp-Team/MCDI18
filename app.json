@@ -9,6 +9,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "facebookScheme": "fb2313158672248133",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -21,7 +22,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationAlwaysUsageDescription": "stuff",
+        "NSLocationWhenInUseUsageDescription": "stuff",
+        "CFBundleURLTypes": [
+          {
+            "CFBundleTypeRole": "Editor",
+            "CFBundleURLName": "Go Green",
+            "CFBundleURLSchemes": ["com.googleusercontent.apps.312926476032-buhlso649lnmot87reo378n6vpgbdfif"]
+          }
+        ]
+      }
     }
   }
 }

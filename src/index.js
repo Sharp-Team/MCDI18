@@ -72,7 +72,6 @@ const MyStackNavigator = createStackNavigator({
 export default createDrawerNavigator(
   {
     MyStackNavigator,
-    DrawerScreen,
   },
   {
     contentComponent: DrawerScreen,

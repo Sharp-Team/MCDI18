@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     justifyContent: 'space-between',
     borderRadius: 7,
-    zIndex: 1,
+    zIndex: 10,
     position: 'absolute',
     top: 50,
     left: 0,
@@ -182,13 +182,12 @@ export default class MapScreen extends React.Component {
 
   getLocationAsync = async () => {
     const { status } = await Permissions.askAsync(Permissions.LOCATION)
-    if (status !== 'granted') {
-      this.setState({
-        errorMessage: 'Permission to access location was denied',
-      })
+    if (status === 'granted') {
+      const location = await Location.getCurrentPositionAsync({})
+      this.setState({ location })
+    } else {
+      console.log('Location permission not granted')
     }
-    const location = await Location.getCurrentPositionAsync({})
-    this.setState({ location })
   }
 
   setIsVisible = boo => {
@@ -208,6 +207,27 @@ export default class MapScreen extends React.Component {
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icon.Ionicons style={styles.icon} name="ios-menu" size={35} color="#000" />
           </TouchableOpacity>
+          {navigation.state.params.type === 'facebook' && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>Hello {navigation.state.params.name}</Text>
+              <Image
+                style={{ width: 20, height: 20, marginLeft: 10 }}
+                source={{ uri: navigation.state.params.picture.data.url }}
+              />
+            </View>
+          )}
+          {navigation.state.params.type === 'normal' && (
+            <Text>Hello {navigation.state.params.name}</Text>
+          )}
+          {navigation.state.params.type === 'google' && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Text>Hello {navigation.state.params.name}</Text>
+              <Image
+                style={{ width: 20, height: 20, marginLeft: 10 }}
+                source={{ uri: navigation.state.params.photoUrl }}
+              />
+            </View>
+          )}
           <TouchableOpacity onPress={() => navigation.navigate('NotificationScreen')}>
             <Icon.Ionicons style={styles.icon} name="ios-notifications" size={35} color="#bbb" />
           </TouchableOpacity>
