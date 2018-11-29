@@ -35,7 +35,7 @@ ButtonOutline.defaultProps = {
   size: 16,
   title: 'BUTTON',
   iconName: '',
-  login: undefined,
+  login: () => {},
 }
 
 ButtonOutline.propTypes = {

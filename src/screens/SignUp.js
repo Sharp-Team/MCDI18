@@ -76,29 +76,59 @@ export default class SignUp extends React.Component {
       username: '',
       phone: '',
       password: '',
+      errorName: false,
+      errorUsername: false,
+      errorPhoneNumber: false,
+      errorPassword: false,
+      errorRePassword: false,
       // rePassword: '',
     }
   }
 
   onChangeName = name => {
     this.setState({ name })
+    if (!name) {
+      this.setState({ errorName: true })
+    } else {
+      this.setState({ errorName: false })
+    }
   }
 
   onChangeUser = username => {
     this.setState({ username })
+    if (!username) {
+      this.setState({ errorUsername: true })
+    } else {
+      this.setState({ errorUsername: false })
+    }
   }
 
   onChangePhone = phone => {
     this.setState({ phone })
+    if (!phone) {
+      this.setState({ errorPhoneNumber: true })
+    } else {
+      this.setState({ errorPhoneNumber: false })
+    }
   }
 
   onChangePassword = password => {
     this.setState({ password })
+    if (!password) {
+      this.setState({ errorPassword: true })
+    } else {
+      this.setState({ errorPassword: false })
+    }
   }
 
-  // onChangeRePassword = rePassword => {
-  //   this.setState({ rePassword })
-  // }
+  onChangeRePassword = rePassword => {
+    this.setState({ rePassword })
+    if (!rePassword) {
+      this.setState({ errorUsername: true })
+    } else {
+      this.setState({ errorUsername: false })
+    }
+  }
 
   signUpWithFacebookAsync = async () => {
     const { navigation } = this.props
@@ -134,6 +164,7 @@ export default class SignUp extends React.Component {
         androidClientId: '88908170629-ljjlothv906vrdrbv7gu11urcdbbqpgp.apps.googleusercontent.com',
         iosClientId: '88908170629-qan82lra2eofabrpe2babuqo3fo2cdfe.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
+        behavior: 'web',
       })
       if (result.type === 'success') {
         navigation.navigate('MapScreen', { type: 'google', ...result.user })
@@ -145,56 +176,83 @@ export default class SignUp extends React.Component {
   }
 
   signUp() {
-    const { name, username, phone, password } = this.state
+    const { name, username, phone, password, rePassword } = this.state
     const { navigation } = this.props
-    axios
-      .post('https://wcdi18.herokuapp.com/api/user/signup', {
-        full_name: name,
-        username,
-        phone_number: phone,
-        password,
+    if (name && username && phone && password && rePassword) {
+      if (password === rePassword) {
+        this.setState({ errorRePassword: false })
+        axios
+          .post('https://wcdi18.herokuapp.com/api/user/signup', {
+            full_name: name,
+            username,
+            phone_number: phone,
+            password,
+          })
+          .then(response => {
+            if (!response.data.error) {
+              navigation.navigate('MapScreen', { type: 'normal', name })
+            } else {
+              alert(response.data.error)
+            }
+          })
+          .catch(error => {
+            console.log('dd', error)
+          })
+      } else {
+        this.setState({ errorRePassword: true })
+      }
+    } else {
+      this.setState({
+        errorName: !name,
+        errorUsername: !username,
+        errorPhoneNumber: !phone,
+        errorPassword: !password,
+        errorRePassword: !rePassword,
       })
-      .then(response => {
-        if (!response.data.error) {
-          navigation.navigate('MapScreen', { type: 'normal', name })
-        } else {
-          alert(response.data.error)
-        }
-      })
-      .catch(error => {
-        console.log('dd', error)
-      })
+    }
   }
 
   render() {
+    const {
+      errorName,
+      errorUsername,
+      errorPhoneNumber,
+      errorPassword,
+      errorRePassword,
+    } = this.state
     return (
       <ScrollView style={styles.container}>
         <Text style={styles.formTitle}>Tạo tài khoản</Text>
         <InputCustom
           placeholder="Nhập tên của bạn"
           inputLabel="Họ và tên"
+          error={errorName}
           onChangeText={this.onChangeName}
         />
         <InputCustom
           placeholder="Tên đăng nhập"
           inputLabel="Tên đăng nhập"
+          error={errorUsername}
           onChangeText={this.onChangeUser}
         />
         <InputCustom
           placeholder="Nhập số điện thoại của bạn"
           inputLabel="Số điện thoại"
+          error={errorPhoneNumber}
           onChangeText={this.onChangePhone}
         />
         <InputCustom
           secure
           placeholder="Tạo mật khẩu của bạn"
           inputLabel="Mật khẩu"
+          error={errorPassword}
           onChangeText={this.onChangePassword}
         />
         <InputCustom
           secure
           placeholder="Nhập lại mật khẩu"
           inputLabel="Nhập lại mật khẩu"
+          error={errorRePassword}
           onChangeText={this.onChangeRePassword}
         />
         <Text style={styles.titleUse}>Hoặc sử dụng</Text>

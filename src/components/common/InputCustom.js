@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     paddingBottom: 6,
-    borderBottomColor: '#ccc',
     borderBottomWidth: 1,
     paddingRight: 35,
   },
@@ -44,14 +43,14 @@ export default class InputCustom extends React.Component {
 
   render() {
     const { isShowPwd } = this.state
-    const { secure, placeholder, inputLabel, onChangeText } = this.props
+    const { secure, placeholder, inputLabel, onChangeText, error } = this.props
     return (
       <View style={styles.inputGroup}>
         <View style={styles.inputWithEyes}>
           {inputLabel !== '' && <Text style={styles.textInputLabel}>{inputLabel}</Text>}
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TextInput
-              style={styles.textInputField}
+              style={[styles.textInputField, { borderBottomColor: error ? '#f33636' : '#ccc' }]}
               onChangeText={text => onChangeText(text)}
               secureTextEntry={secure && !isShowPwd}
               placeholderStyle={{ fontSize: 16, color: '#ccc' }}
@@ -82,6 +81,7 @@ InputCustom.defaultProps = {
   placeholder: '',
   inputLabel: '',
   onChangeText: null,
+  error: false,
 }
 
 InputCustom.propTypes = {
@@ -89,4 +89,5 @@ InputCustom.propTypes = {
   placeholder: PropTypes.string,
   inputLabel: PropTypes.string,
   onChangeText: PropTypes.func,
+  error: PropTypes.bool,
 }

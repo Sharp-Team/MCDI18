@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  ScrollView,
+  AsyncStorage,
+} from 'react-native'
 import ChangeJob from './ChangeJob'
 import ProfileItem from './ProfileItem'
 import { TEXT_GRAY, PRIMARY } from '../../../constants/color'
@@ -48,18 +56,25 @@ export default class InfoBasic extends Component {
     super(props)
     this.state = {
       confirmPass: false,
+      data: null,
     }
   }
 
+  componentWillMount = async () => {
+    await AsyncStorage.getItem('oj').then(res => {
+      this.setState({ data: JSON.parse(res) })
+    })
+  }
+
   render() {
-    const { confirmPass } = this.state
+    const { confirmPass, data } = this.state
     return (
       <ScrollView contentContainerStyle={styles.infoBasicContainer}>
         <View style={styles.changeJobWrapper}>
           <ChangeJob />
         </View>
         <TouchableOpacity>
-          <ProfileItem title="Email" value="quangt1297@gmail.com" />
+          <ProfileItem title="Email" value={data && data.email} />
         </TouchableOpacity>
         <TouchableOpacity>
           <ProfileItem title="Địa chỉ" value="Hà Nội" />

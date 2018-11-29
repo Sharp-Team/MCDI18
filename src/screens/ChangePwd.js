@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
 export default () => (
   <ScrollView style={styles.container}>
     <Text style={styles.formTitle}>Đổi mật khẩu</Text>
+    <InputCustom placeholder="Nhập tên tài khoản" inputLabel="Tên tài khoản" />
     <InputCustom secure placeholder="Nhập mật khẩu cũ của bạn" inputLabel="Mật khẩu cũ" />
     <InputCustom secure placeholder="Nhập mật khẩu mới của bạn" inputLabel="Mật khẩu mới" />
     <InputCustom secure placeholder="Nhập lại mật khẩu mới" inputLabel="Mật lại khẩu mới" />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { InputCustom, ButtonOutline } from '../components/common'
@@ -82,7 +82,22 @@ export default class SignIn extends React.Component {
     super(props)
     this.state = {
       username: '',
-      password: '0',
+      password: '',
+      errorUserName: false,
+      errrorPassword: false,
+    }
+  }
+
+  saveLocalStorage = async object1 => {
+    const newObj = {
+      name: object1.full_name ? object1.full_name : object1.name,
+      email: object1.email,
+      avatar: object1.photoUrl,
+    }
+    try {
+      await AsyncStorage.setItem('oj', JSON.stringify(newObj))
+    } catch (err) {
+      console.log(`logs: ${err}`)
     }
   }
 
@@ -102,6 +117,7 @@ export default class SignIn extends React.Component {
         )
         const userInfo = await response.json()
         if (userInfo) {
+          saveLocalStorage(result.user)
           navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
         }
       } else {
@@ -120,8 +136,10 @@ export default class SignIn extends React.Component {
         androidClientId: '88908170629-ljjlothv906vrdrbv7gu11urcdbbqpgp.apps.googleusercontent.com',
         iosClientId: '88908170629-qan82lra2eofabrpe2babuqo3fo2cdfe.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
+        behavior: 'web',
       })
       if (result.type === 'success') {
+        this.saveLocalStorage(result.user)
         navigation.navigate('MapScreen', { type: 'google', ...result.user })
       }
       return { cancelled: true }
@@ -130,25 +148,14 @@ export default class SignIn extends React.Component {
     }
   }
 
-  onChangeUser = username => {
-    this.setState({ username })
-  }
-
-  onChangePassword = password => {
-    this.setState({ password })
-  }
-
-  loginNormal() {
-    const { username, password } = this.state
-    const { navigation } = this.props
+  checkIsProvideInfo = username => {
     axios
-      .post('https://wcdi18.herokuapp.com/api/user/signin', {
+      .post('https://wcdi18.herokuapp.com/api/user/profile', {
         username,
-        password,
       })
       .then(response => {
         if (!response.data.error) {
-          navigation.navigate('MapScreen', { type: 'normal', name: username })
+          console.log(result)
         } else {
           alert(response.data.error)
         }
@@ -158,20 +165,70 @@ export default class SignIn extends React.Component {
       })
   }
 
+  onChangeUser = username => {
+    this.setState({ username })
+    if (!username) {
+      this.setState({ errorUserName: true })
+    } else {
+      this.setState({ errorUserName: false })
+    }
+  }
+
+  onChangePassword = password => {
+    this.setState({ password })
+    if (!password) {
+      this.setState({ errrorPassword: true })
+    } else {
+      this.setState({ errrorPassword: false })
+    }
+  }
+
+  loginNormal() {
+    const { username, password } = this.state
+    const { navigation } = this.props
+    if (username && password) {
+      axios
+        .post('https://wcdi18.herokuapp.com/api/user/signinmobile', {
+          username,
+          password,
+        })
+        .then(response => {
+          console.log(response.data)
+          if (!response.data.error) {
+            this.saveLocalStorage(response.data)
+            navigation.navigate('MapScreen', { type: 'normal', name: username })
+          } else {
+            alert(response.data.error)
+          }
+        })
+        .catch(error => {
+          console.log('dd', error)
+        })
+    } else {
+      this.setState({
+        errorUserName: !username,
+        errrorPassword: !password,
+      })
+    }
+  }
+
   render() {
     const { navigation } = this.props
+    const { errorUserName, errrorPassword } = this.state
     return (
       <View style={styles.container}>
         <Text style={styles.formTitle}>Đăng nhập</Text>
         <InputCustom
           placeholder="Nhập tên đăng nhập của bạn"
           inputLabel="Tên đăng nhập"
+          error={errorUserName}
           onChangeText={this.onChangeUser}
         />
         <InputCustom
           secure
           placeholder="Nhập mật khẩu"
           inputLabel="Mật khẩu"
+          error={errrorPassword}
           onChangeText={this.onChangePassword}
         />
         <View style={styles.textPocicy}>
