@@ -7,7 +7,7 @@ const TagWork = ({ name, onHandleTag }) => {
   const styles = {
     tagContainer: {
       marginTop: 5,
-      backgroundColor: '#dcdcdc',
+      backgroundColor: '#e6e6e6',
       position: 'relative',
       borderRadius: 18,
       marginLeft: 3,

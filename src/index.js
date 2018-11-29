@@ -14,6 +14,7 @@ import {
   CardScan,
   DrawerScreen,
   Feedback,
+  ProvideProfile,
 } from './screens'
 
 const MyTabNavigator = createBottomTabNavigator({
@@ -57,6 +58,7 @@ const MyStackNavigator = createStackNavigator({
   NotificationScreen,
   Profile,
   Feedback,
+  ProvideProfile,
 })
 
 export default createDrawerNavigator(

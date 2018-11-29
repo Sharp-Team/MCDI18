@@ -86,7 +86,7 @@ export default class DrawerScreen extends React.Component {
               <TouchableOpacity onPress={() => navigation.navigate('Feedback')}>
                 <Text style={styles.textDrawer}>Feedback</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                 <Text style={styles.textDrawer}>Logout</Text>
               </TouchableOpacity>
             </View>

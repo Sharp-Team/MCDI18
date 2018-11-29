@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
 import RadioGroup from 'react-native-radio-buttons-group'
 
 const styles = StyleSheet.create({
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 
   textArea: {
-    height: 90,
+    height: 110,
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#cecece',
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     borderColor: '#cecece',
     paddingHorizontal: 10,
     paddingVertical: 5,
+    height: 42,
   },
 
   buttonSignUp: {
@@ -86,7 +87,7 @@ export default class Feedback extends React.Component {
   render() {
     const { data } = this.state
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.textHeading}>Feedback</Text>
         <Text style={{ color: '#333', fontSize: 16, fontWeight: '500', marginBottom: 35 }}>
           Vui lòng điền phản hồi bên dưới:
@@ -102,7 +103,7 @@ export default class Feedback extends React.Component {
         <TouchableOpacity style={styles.buttonSignUp}>
           <Text style={styles.textSignUp}>Gửi phản hồi</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     )
   }
 }

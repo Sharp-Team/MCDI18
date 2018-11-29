@@ -87,16 +87,26 @@ const SignIn = ({ navigation }) => (
         <Text style={styles.highlightLink}>mật khẩu</Text>
       </TouchableOpacity>
       <Text style={styles.textPi}> hoặc </Text>
-      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('ChangePwd')}>
+      <TouchableOpacity style={styles.helpLink} onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.highlightLink}>đăng ký tài khoản mới</Text>
       </TouchableOpacity>
       <Text style={styles.textPi}>?</Text>
     </View>
     <Text style={styles.titleUse}>Hoặc sử dụng</Text>
     <View style={styles.buttonGroup}>
-      <ButtonOutline color="#F24033" title="google" iconName="logo-googleplus" />
+      <ButtonOutline
+        onPress={() => navigation.navigate('ProvideProfile')}
+        color="#F24033"
+        title="google"
+        iconName="logo-googleplus"
+      />
       <View style={{ width: 20 }} />
-      <ButtonOutline color="#43619C" title="facebook" iconName="logo-facebook" />
+      <ButtonOutline
+        onPress={() => navigation.navigate('ProvideProfile')}
+        color="#43619C"
+        title="facebook"
+        iconName="logo-facebook"
+      />
     </View>
     <View style={styles.btnEnd}>
       <TouchableOpacity
