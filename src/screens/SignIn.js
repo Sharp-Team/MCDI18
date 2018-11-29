@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { InputCustom, ButtonOutline } from '../components/common'
@@ -88,6 +88,19 @@ export default class SignIn extends React.Component {
     }
   }
 
+  saveLocalStorage = async object1 => {
+    const newObj = {
+      name: object1.full_name ? object1.full_name : object1.name,
+      email: object1.email,
+      avatar: object1.photoUrl,
+    }
+    try {
+      await AsyncStorage.setItem('oj', JSON.stringify(newObj))
+    } catch (err) {
+      console.log(`logs: ${err}`)
+    }
+  }
+
   signInWithFacebookAsync = async () => {
     const { navigation } = this.props
     try {
@@ -104,6 +117,7 @@ export default class SignIn extends React.Component {
         )
         const userInfo = await response.json()
         if (userInfo) {
+          saveLocalStorage(result.user)
           navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
         }
       } else {
@@ -125,13 +139,30 @@ export default class SignIn extends React.Component {
         behavior: 'web',
       })
       if (result.type === 'success') {
-        // navigation.navigate('Prov', { type: 'google', ...result.user })
-        navigation.navigate('ProvideProfile')
+        this.saveLocalStorage(result.user)
+        navigation.navigate('MapScreen', { type: 'google', ...result.user })
       }
       return { cancelled: true }
     } catch (e) {
       return { error: true }
     }
+  }
+
+  checkIsProvideInfo = username => {
+    axios
+      .post('https://wcdi18.herokuapp.com/api/user/profile', {
+        username,
+      })
+      .then(response => {
+        if (!response.data.error) {
+          console.log(result)
+        } else {
+          alert(response.data.error)
+        }
+      })
+      .catch(error => {
+        console.log('dd', error)
+      })
   }
 
   onChangeUser = username => {
@@ -157,12 +188,14 @@ export default class SignIn extends React.Component {
     const { navigation } = this.props
     if (username && password) {
       axios
-        .post('https://wcdi18.herokuapp.com/api/user/signin', {
+        .post('https://wcdi18.herokuapp.com/api/user/signinmobile', {
           username,
           password,
         })
         .then(response => {
+          console.log(response.data)
           if (!response.data.error) {
+            this.saveLocalStorage(response.data)
             navigation.navigate('MapScreen', { type: 'normal', name: username })
           } else {
             alert(response.data.error)

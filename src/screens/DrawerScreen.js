@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Switch } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Switch, AsyncStorage } from 'react-native'
 import { Icon } from 'expo'
 import PropTypes from 'prop-types'
 
@@ -45,6 +45,14 @@ export default class DrawerScreen extends React.Component {
   state = {
     isLogged: true, // fake logged in
     userState: true,
+    data: null,
+  }
+
+  componentWillMount = async () => {
+    await AsyncStorage.getItem('oj').then(res => {
+      console.log({ res })
+      this.setState({ data: JSON.parse(res) })
+    })
   }
 
   handleToggleSwitch = boo => {
@@ -53,17 +61,17 @@ export default class DrawerScreen extends React.Component {
 
   render() {
     const { navigation } = this.props
-    const { isLogged, userState } = this.state
+    const { isLogged, userState, data } = this.state
     return (
       <View style={styles.container}>
         {isLogged ? (
           <View>
             <View style={styles.header}>
               <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.userName}>Nguyễn Doãn Tú</Text>
+                {data && <Text style={styles.userName}>{data.name}</Text>}
                 <TouchableOpacity
                   style={{ marginLeft: 'auto' }}
-                  onPress={() => navigation.navigate('Profile')}
+                  onPress={() => navigation.navigate('Profile', data)}
                 >
                   <Icon.Ionicons name="ios-settings" style={styles.iconSetting} />
                 </TouchableOpacity>

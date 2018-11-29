@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text, ScrollView, TouchableOpacity } from 'react-native'
+import axios from 'axios'
 import { Dropdown } from 'react-native-material-dropdown'
 import RadioGroup from 'react-native-radio-buttons-group'
 import InputCustom from '../components/common/InputCustom'
@@ -39,25 +40,43 @@ export default class Feedback extends React.Component {
   state = {
     citySelected: '',
     districtSelected: '',
+    jobSelected: '',
+    role: 'Khách hàng',
     userState: [
       {
         label: 'Khách hàng',
         value: 'Khách hàng',
         color: '#2dd754',
+        selected: true,
       },
       {
         label: 'Người làm việc',
         value: 'Người làm việc',
         color: '#2dd754',
+        selected: false,
       },
     ],
-    // username: '',
-    // phone: '',
-    // cityz: '',
+    listJob: [
+      { value: 'Thợ sửa điện lạnh' },
+      { value: 'Thợ sửa điện tử' },
+      { value: 'Thợ sửa điện thoại' },
+      { value: 'Thợ sửa xe máy' },
+      { value: 'Thợ sửa ô tô' },
+      { value: 'Thu mua phế liệu' },
+      { value: 'Bác sĩ' },
+      { value: 'Thợ sửa máy tính/laptop' },
+      { value: 'Thợ sửa đồ gia dụng' },
+    ],
+    username: '',
+    phone: '',
     // userRole: '',
+    address: '',
     errorUsername: false,
     errorPhone: false,
     errorAddress: false,
+    errorDistricts: false,
+    errorCity: false,
+    errorJob: false,
   }
 
   getCity = data => {
@@ -73,19 +92,25 @@ export default class Feedback extends React.Component {
   }
 
   handleSelectCity = selected => {
-    this.setState({ citySelected: selected, districtSelected: '' })
+    this.setState({ citySelected: selected, districtSelected: '', errorCity: false })
   }
 
   handleSelectDistrict = selected => {
-    this.setState({ districtSelected: selected })
+    this.setState({ districtSelected: selected, errorDistricts: false })
+  }
+
+  handleSelectJob = selected => {
+    this.setState({ jobSelected: selected, errorJob: false })
   }
 
   clickRadio = userState => {
     this.setState({ userState })
+    const r = userState.filter(i => i.selected === true)
+    this.setState({ role: r[0].value })
   }
 
   onChangeUser = username => {
-    // this.setState({ username })
+    this.setState({ username })
     if (!username) {
       this.setState({ errorUsername: true })
     } else {
@@ -94,7 +119,7 @@ export default class Feedback extends React.Component {
   }
 
   onChangePhone = phone => {
-    // this.setState({ phone })
+    this.setState({ phone })
     if (!phone) {
       this.setState({ errorPhone: true })
     } else {
@@ -103,7 +128,7 @@ export default class Feedback extends React.Component {
   }
 
   onChangeAddress = address => {
-    // this.setState({ address })
+    this.setState({ address })
     if (!address) {
       this.setState({ errorAddress: true })
     } else {
@@ -111,14 +136,64 @@ export default class Feedback extends React.Component {
     }
   }
 
+  updateAC = () => {
+    const {
+      username,
+      phone,
+      citySelected,
+      districtSelected,
+      address,
+      role,
+      jobSelected,
+    } = this.state
+    const { navigation } = this.props
+    if (username && phone && citySelected && districtSelected && address && jobSelected) {
+      axios
+        .post('https://wcdi18.herokuapp.com/api/user/update', {
+          username: navigation.state.params.id,
+          full_name: username,
+          phone_number: phone,
+          province: citySelected,
+          district: districtSelected,
+          address_detail: address,
+          object: role,
+          career: jobSelected,
+        })
+        .then(response => {
+          if (!response.data.error) {
+            navigation.navigate('MapScreen', { type: navigation.state.params.type, name: username })
+          } else {
+            alert(response.data.error)
+          }
+        })
+        .catch(error => {
+          console.log('dd', error)
+        })
+    } else {
+      this.setState({
+        errorDistricts: !districtSelected,
+        errorUsername: !username,
+        errorPhone: !phone,
+        errorAddress: !address,
+        errorCity: !citySelected,
+      })
+    }
+  }
+
   render() {
     const {
       citySelected,
       districtSelected,
+      jobSelected,
       userState,
       errorUsername,
       errorPhone,
       errorAddress,
+      errorDistricts,
+      errorCity,
+      errorJob,
+      listJob,
+      role,
     } = this.state
     const vietnam = require('../../constants/city.json')
     const city = this.getCity(vietnam)
@@ -143,6 +218,7 @@ export default class Feedback extends React.Component {
           <Dropdown
             label="Chọn tỉnh hoặc thành phố"
             data={city}
+            error={errorCity ? 'Bạn cần phải chọn 1 thành phố' : ''}
             value={citySelected}
             onChangeText={value => {
               this.handleSelectCity(value)
@@ -151,6 +227,7 @@ export default class Feedback extends React.Component {
           <Dropdown
             label="Chọn quận hoặc huyện"
             data={districts}
+            error={errorDistricts ? 'Bạn cần phải chọn 1 quận huyện' : ''}
             value={districtSelected}
             onChangeText={value => {
               this.handleSelectDistrict(value)
@@ -168,7 +245,23 @@ export default class Feedback extends React.Component {
               <RadioGroup radioButtons={userState} onPress={this.clickRadio} />
             </View>
           </View>
-          <TouchableOpacity style={{ borderRadius: 4, backgroundColor: '#2dd754', marginTop: 20 }}>
+          {role === 'Người làm việc' && (
+            <Dropdown
+              label="Chọn nghề nghiệp"
+              data={listJob}
+              error={errorJob ? 'Bạn cần phải chọn 1 nghề nghiệp' : ''}
+              value={jobSelected}
+              onChangeText={value => {
+                this.handleSelectJob(value)
+              }}
+            />
+          )}
+          <TouchableOpacity
+            style={{ borderRadius: 4, backgroundColor: '#2dd754', marginTop: 20 }}
+            onPress={() => {
+              this.updateAC()
+            }}
+          >
             <Text style={styles.update}>Cập nhật</Text>
           </TouchableOpacity>
         </View>
