@@ -1,56 +1,65 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import { RectButton } from 'react-native-gesture-handler'
 
 const SwiperThree = ({ navigation }) => {
   const styles = {
     swContainer: {
+      paddingTop: 80,
+      backgroundColor: '#b802c6',
       flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     skipWraper: {
-      flex: 1,
-      alignItems: 'flex-end',
-      paddingRight: 15,
-      justifyContent: 'center',
+      left: 150,
+      marginBottom: 20,
     },
     skipText: {
       fontSize: 16,
       color: '#000',
     },
-    titleWraper: {
-      flex: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    titleText: {
-      color: '#469C29',
-      fontSize: 48,
-      fontWeight: 'bold',
+    textIntro: {
+      color: '#fff',
+      fontSize: 30,
+      textAlign: 'center',
     },
     contentWraper: {
       flex: 4,
       alignItems: 'center',
-      marginTop: 40,
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
     },
     contentText: {
-      fontSize: 18,
-      color: '#000',
+      fontSize: 19,
+      color: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    image: {
+      marginTop: 70,
+      marginBottom: 40,
+      width: 200,
+      height: 200,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   }
   return (
     <View style={styles.swContainer}>
+      <Text style={styles.textIntro}>Chỉ đường đến tận nơi</Text>
+      <Image style={styles.image} source={require('../../../assets/slider/slider3.png')} />
+      <View style={styles.contentWraper}>
+        <Text style={styles.contentText}>
+          Chỉ đường tận nơi cho các đối tượng cần sẽ tìm được đến với nhau.
+        </Text>
+      </View>
       <View style={styles.skipWraper}>
         <RectButton onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.skipText}>Bỏ qua</Text>
         </RectButton>
-      </View>
-      <View style={styles.titleWraper}>
-        <Text style={styles.titleText}>Hình ảnh</Text>
-      </View>
-      <View style={styles.contentWraper}>
-        <Text style={styles.contentText}>Kết nối công việc</Text>
       </View>
     </View>
   )

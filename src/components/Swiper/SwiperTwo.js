@@ -1,57 +1,50 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
-import { RectButton } from 'react-native-gesture-handler'
 
-const SwiperTwo = ({ navigation }) => {
+const SwiperTwo = () => {
   const styles = {
     swContainer: {
+      paddingTop: 80,
+      backgroundColor: '#03a373',
       flex: 1,
-      backgroundColor: '#ECEFF0',
-    },
-    skipWraper: {
-      flex: 1,
-      alignItems: 'flex-end',
-      paddingRight: 15,
       justifyContent: 'center',
-    },
-    skipText: {
-      fontSize: 16,
-      color: '#000',
-    },
-    titleWraper: {
-      flex: 5,
       alignItems: 'center',
+    },
+    textIntro: {
+      color: '#fff',
+      fontSize: 30,
+      textAlign: 'center',
+    },
+    image: {
+      marginTop: 70,
+      marginBottom: 40,
+      width: 200,
+      height: 200,
       justifyContent: 'center',
+      alignItems: 'center',
     },
-    titleText: {
-      color: '#469C29',
-      fontSize: 48,
-      fontWeight: 'bold',
-    },
-    descWraper: {
+    contentWraper: {
       flex: 4,
       alignItems: 'center',
-      marginTop: 40,
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
     },
     contentText: {
-      fontSize: 18,
-      color: '#000',
+      fontSize: 19,
+      color: '#fff',
     },
   }
   return (
     <View style={styles.swContainer}>
-      <View style={styles.skipWraper}>
-        <RectButton onPress={() => navigation.navigate('SignIn')}>
-          <Text style={styles.skipText}>Bỏ qua</Text>
-        </RectButton>
-      </View>
-      <View style={styles.titleWraper}>
-        <Text style={styles.titleText}>Go Green</Text>
-      </View>
-      <View style={styles.descWraper}>
-        <Text style={styles.contentText}>Kết nối con người</Text>
+      <Text style={styles.textIntro}>Nhận, phát thông báo công việc</Text>
+      <Image style={styles.image} source={require('../../../assets/slider/slider2.png')} />
+      <View style={styles.contentWraper}>
+        <Text style={styles.contentText}>
+          Phát thông cho nhiều worker khi có công việc cần giúp đỡ một cách đơn giản và ngay lập
+          tức.
+        </Text>
       </View>
     </View>
   )

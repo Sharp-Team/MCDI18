@@ -1,4 +1,4 @@
-export const PRIMARY = '#2dd754'
+export const PRIMARY = '#2ebe4a'
 export const TEXT_GRAY = '#979797'
 export const TEXT_GRAY_DARKER = '#333'
 export const BACKGROUND_LIGHT = '#eceff0'
