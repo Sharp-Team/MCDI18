@@ -12,7 +12,8 @@ const SwiperOne = () => {
     },
     textIntro: {
       color: '#fff',
-      fontSize: 30,
+      fontSize: 25,
+      paddingHorizontal: 10,
       textAlign: 'center',
     },
     image: {
@@ -31,7 +32,8 @@ const SwiperOne = () => {
       paddingRight: 10,
     },
     contentText: {
-      fontSize: 19,
+      fontSize: 18,
+      textAlign: 'center',
       color: '#fff',
     },
   }
