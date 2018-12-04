@@ -113,7 +113,7 @@ export default class CardScan extends React.Component {
     return (
       <ScrollView contentContainerStyle={styles.cardScanContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>TÌM QUANH ĐÂY</Text>
+          <Text style={styles.titleText}>GỬI THÔNG BÁO</Text>
         </View>
         <CardLocation />
         <CardSearchWork

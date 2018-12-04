@@ -42,7 +42,7 @@ export default class CardScopeScan extends React.Component {
           <Text style={styles.scopeValue}>{valueSlider}km</Text>
         </View>
         <Slider
-          maximumValue={100}
+          maximumValue={30}
           value={valueSlider}
           step={1}
           minimumTrackTintColor={PRIMARY}
