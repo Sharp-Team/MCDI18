@@ -117,15 +117,15 @@ export default class SignIn extends React.Component {
         )
         const userInfo = await response.json()
         if (userInfo) {
-          saveLocalStorage(result.user)
+          this.saveLocalStorage(userInfo)
           navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
         }
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
-      // alert(`Facebook Login Error: ${message}`)
+      // navigation.navigate('MapScreen', { ...userInfo, type: 'facebook' })
+      alert(`Facebook Login Error: ${message}`)
     }
   }
 
@@ -193,7 +193,6 @@ export default class SignIn extends React.Component {
           password,
         })
         .then(response => {
-          console.log(response.data)
           if (!response.data.error) {
             this.saveLocalStorage(response.data)
             navigation.navigate('MapScreen', { type: 'normal', name: username })

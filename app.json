@@ -22,20 +22,13 @@
       "**/*"
     ],
     "android": {
-      "package": "ooo.coralo.gogreen"
+      "package": "host.exp.exponent"
     },
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "stuff",
-        "NSLocationWhenInUseUsageDescription": "stuff",
-        "CFBundleURLTypes": [
-          {
-            "CFBundleTypeRole": "Editor",
-            "CFBundleURLName": "Go Green",
-            "CFBundleURLSchemes": ["com.googleusercontent.apps.312926476032-buhlso649lnmot87reo378n6vpgbdfif"]
-          }
-        ]
+        "NSLocationWhenInUseUsageDescription": "stuff"
       }
     }
   }
